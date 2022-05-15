@@ -1,7 +1,8 @@
 package tests;
 
-import fileLoaders.AppProperties;
-import fileLoaders.ConfigManager;
+import fileLoaders.AppPropertiesReader;
+import fileLoaders.ConfigReader;
+import fileLoaders.TestDataReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
@@ -11,13 +12,15 @@ import org.openqa.selenium.WebDriver;
 public class BaseTest {
 
     protected WebDriver driver;
-    protected ConfigManager configuration;
-    protected AppProperties appProperties;
+    protected ConfigReader configuration;
+    protected AppPropertiesReader appProperties;
+    protected TestDataReader testData;
 
     @BeforeAll
     public void initialSetup() {
-        configuration = new ConfigManager();
-        appProperties = new AppProperties();
+        testData = new TestDataReader();
+        configuration = new ConfigReader();
+        appProperties = new AppPropertiesReader();
     }
 
     @AfterEach

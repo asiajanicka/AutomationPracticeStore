@@ -1,16 +1,18 @@
 package fileLoaders;
 
 import lombok.SneakyThrows;
-
 import java.util.Properties;
 
-public abstract class PropertiesLoader {
+public abstract class PropertiesReader {
 
     protected Properties properties;
 
     @SneakyThrows
-    public PropertiesLoader(String path) {
+    public PropertiesReader(String path) {
         properties = new Properties();
         properties.load(getClass().getClassLoader().getResourceAsStream(path));
+        loadData();
     }
+
+    abstract void loadData();
 }

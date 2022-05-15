@@ -20,7 +20,7 @@
         <lombok.version>1.18.22</lombok.version>
         <allure-junit5.version>2.13.7</allure-junit5.version>
         <log4j-core.version>2.6.1</log4j-core.version>
-        <aspectj.version>1.8.10</aspectj.version>
+        <aspectj.version>1.9.6</aspectj.version>
     </properties>
 
     <dependencies>
