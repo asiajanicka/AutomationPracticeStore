@@ -21,6 +21,7 @@
         <allure-junit5.version>2.13.7</allure-junit5.version>
         <log4j-core.version>2.6.1</log4j-core.version>
         <aspectj.version>1.9.6</aspectj.version>
+        <awaitility.version>3.0.0</awaitility.version>
     </properties>
 
     <dependencies>
@@ -74,6 +75,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j-core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <version>${awaitility.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
