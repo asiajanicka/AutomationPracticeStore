@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObjects.BasePage;
 
 import java.util.List;
@@ -17,14 +16,11 @@ public class SliderPage extends BasePage {
 
     @FindBy(className = "bx-viewport")
     private WebElement viewPort;
-
     @Getter
     @FindBy(xpath = "//*[@id='homeslider']//li[@class='homeslider-container']" )
     private List<WebElement> elements;
-
     @FindBy(className = "bx-prev")
     private WebElement prevBtn;
-
     @FindBy(className = "bx-next")
     private WebElement nextBtn;
 

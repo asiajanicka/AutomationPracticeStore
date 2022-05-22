@@ -7,6 +7,8 @@ import utils.ContactUsMessage;
 public class TestDataReader extends PropertiesReader {
 
     private ContactUsMessage message;
+    private String[] productNames;
+    private String[] discountedProductNames;
 
     public TestDataReader() {
         super("testData.properties");
@@ -14,5 +16,7 @@ public class TestDataReader extends PropertiesReader {
 
     void loadData(){
         message = new ContactUsMessage(properties);
+        productNames = properties.getProperty("product.name").split(",");
+        discountedProductNames = properties.getProperty("product.discounted.name").split(",");
     }
 }

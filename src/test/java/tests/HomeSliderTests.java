@@ -17,8 +17,8 @@ import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-
-public class HomePageTests extends BaseTest {
+@Feature("Home Slider")
+public class HomeSliderTests extends BaseTest {
 
     private HomePage home;
 
@@ -34,7 +34,6 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Slider has defined number of slides")
     public void shouldHaveDefinedNumberOfSlidesInSlider() {
         int expectedNumberOfSlides = appProperties.getNumberOfSlidesInCarousel();
@@ -45,7 +44,6 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Display first slide after page launch")
     public void shouldSeeFirstSlideAfterPageLaunch() {
         assertThat(home.getSlider().isElementInViewPort(0))
@@ -55,7 +53,6 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Move to next slide")
     public void shouldMoveToNextSlideByClickOnForwardBtn() {
         home.getSlider().goToNextSlide();
@@ -67,7 +64,6 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Display all slides one by one")
     public void shouldDisplayAllSlidesOneByOne() {
         SoftAssertions softly = new SoftAssertions();
@@ -75,11 +71,9 @@ public class HomePageTests extends BaseTest {
             int indexOfSlide = home.getSlider().getElements().indexOf(slide);
             await()
                     .pollInterval(500, MILLISECONDS)
-                    .untilAsserted(() -> {
-                        assertThat(home.getSlider().isElementInViewPort(slide))
-                                .withFailMessage("Slide %d not is displayed", indexOfSlide)
-                                .isTrue();
-                    });
+                    .untilAsserted(() -> assertThat(home.getSlider().isElementInViewPort(slide))
+                            .withFailMessage("Slide %d not is displayed", indexOfSlide)
+                            .isTrue());
             Allure.step(String.format("Assert if slide %d is displayed", indexOfSlide));
 
             // check heading
@@ -107,7 +101,6 @@ public class HomePageTests extends BaseTest {
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Move to first slide after last slide")
     public void shouldMoveToFirstSlideAfterLastSlide() {
         for (WebElement slide : home.getSlider().getElements()) {
@@ -127,29 +120,31 @@ public class HomePageTests extends BaseTest {
     @Test
     @Feature("Home Slider")
     @DisplayName("Move to previous slide")
-    public void shouldMoveBackToPreviousSlideAfterClickOnBackBtn(){
+    public void shouldMoveBackToPreviousSlideAfterClickOnBackBtn() {
         home.getSlider().goToNextSlide();
         await().atMost(1000, MILLISECONDS).until(() -> home.getSlider().isElementInViewPort(1));
         home.getSlider().goToPreviousSlide();
 
         await().atMost(1000, MILLISECONDS)
-                .untilAsserted(()-> assertThat(home.getSlider().isElementInViewPort(0))
+                .untilAsserted(() -> assertThat(home.getSlider().isElementInViewPort(0))
                         .withFailMessage("Previous slide (with index 0) is not displayed")
                         .isTrue());
         Allure.step("Assert if previous slide (with index 0) is displayed again");
     }
 
     @Test
-    @Feature("Home Slider")
     @DisplayName("Move back to last slide from first slide")
-    public void shouldMoveToLastSlideFromFirstSlideAfterClickOnBackBtnTest(){
-        int indexOfLastSlide = home.getSlider().getNumberOfSlides()-1;
+    public void shouldMoveToLastSlideFromFirstSlideAfterClickOnBackBtnTest() {
+        int indexOfLastSlide = home.getSlider().getNumberOfSlides() - 1;
         home.getSlider().goToPreviousSlide();
 
         await().atMost(1000, MILLISECONDS).pollInterval(500, MILLISECONDS)
-                .untilAsserted(()-> assertThat(home.getSlider().isElementInViewPort(indexOfLastSlide))
+                .untilAsserted(() -> assertThat(home.getSlider().isElementInViewPort(indexOfLastSlide))
                         .withFailMessage(String.format("Last slide with index %d is not displayed", indexOfLastSlide))
                         .isTrue());
         Allure.step(String.format("Assert if last slide (with index %d) is displayed", indexOfLastSlide));
     }
 }
+
+
+

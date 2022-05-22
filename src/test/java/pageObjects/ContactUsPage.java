@@ -17,31 +17,22 @@ public class ContactUsPage extends BasePage{
 
     @FindBy(id = "id_contact")
     private WebElement subjectSelect;
-
     @FindBy(id = "email")
     private WebElement emailInput;
-
     @FindBy(id = "id_order")
     private WebElement orderReferenceInput;
-
     @FindBy(className = "filename")
     private WebElement attachFileBox;
-
     @FindBy(id = "fileUpload")
     private WebElement attachmentInput;
-
     @FindBy(id = "message")
     private WebElement messageTextArea;
-
     @FindBy(id = "submitMessage")
     private WebElement sendBtn;
-
     @FindBy(className = "alert-danger")
     private WebElement redAlert;
-
     @FindBy(className = "alert-success")
     private WebElement greenAlert;
-
     @FindBy(css = ".footer_links .btn")
     private WebElement homeBtn;
 
