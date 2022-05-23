@@ -20,6 +20,10 @@ public class AppPropertiesReader extends PropertiesReader {
     private String popularItemsTabLabel;
     private String bestSellersTabContentId;
     private String popularItemsTabContentId;
+    private String cartEmptyLabel;
+    private String cartOneProductLabel;
+    private String cartProductsLabel;
+    private String cartPageTitle;
 
     private NavPipeLabels navPipeLabel;
 
@@ -44,5 +48,10 @@ public class AppPropertiesReader extends PropertiesReader {
         popularItemsTabLabel = properties.getProperty("home.popularItemsLabel");
         bestSellersTabContentId = properties.getProperty("home.bestSellersId");
         popularItemsTabContentId = properties.getProperty("home.popularItemsId");
+
+        cartEmptyLabel = properties.getProperty("cart.emptyLabel");
+        cartOneProductLabel = properties.getProperty("cart.productLabel");
+        cartProductsLabel = properties.getProperty("cart.productsLabel");
+        cartPageTitle = properties.getProperty("cart.pageTitle");
     }
 }

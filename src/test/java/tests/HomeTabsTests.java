@@ -16,7 +16,6 @@ import pageObjects.homePages.HomePage;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static enums.Stock.IN_STOCK;
 import static org.assertj.core.api.Assertions.assertThat;
