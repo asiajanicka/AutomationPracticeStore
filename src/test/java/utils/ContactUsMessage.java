@@ -4,6 +4,10 @@ import enums.ContactUsSubject;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 
@@ -30,7 +34,7 @@ public class ContactUsMessage {
         email = properties.getProperty("contactUsMessage.email");
         orderReference = properties.getProperty("contactUsMessage.orderReference");
         messageText = properties.getProperty("contactUsMessage.message");
-        attachment = properties.getProperty("contactUsMessage.attachment");
+        attachment = getAttachmentPath(properties.getProperty("contactUsMessage.attachment"));
     }
 
     public ContactUsMessage(ContactUsMessage that) {
@@ -41,5 +45,14 @@ public class ContactUsMessage {
         this.attachment = that.getAttachment();
     }
 
-
+    private String getAttachmentPath(String fileName) {
+        URL res = getClass().getClassLoader().getResource(fileName);
+        File file = null;
+        try {
+            file = Paths.get(res.toURI()).toFile();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return file.getAbsolutePath();
+    }
 }

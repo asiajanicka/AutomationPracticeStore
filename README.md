@@ -12,3 +12,14 @@ The project is created using following frameworks and libraries:
 - Junit5 - for testing
 - Allure - for reporting (allure results are stored in target/allure-results directory)
 - AssertJ - for assertion
+- Awaitility
+- Lombok
+
+Test can be run with use of CHROME and FIREFOX. 
+In order to choose browser, go to config.properties and enter CHROME or FIREFOX for browser param.
+To use mentioned browsers, they should be installed on your computer.
+
+To serve test report with Allure on your computer:
+1) run tests using: mvn clean test 
+2) generate a report with: allure serve target/allure-results
+Please remember that Allure must be installed according to the spec: https://docs.qameta.io/allure/contactUsForm

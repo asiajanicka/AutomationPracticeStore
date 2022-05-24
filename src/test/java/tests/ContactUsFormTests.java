@@ -18,6 +18,7 @@ import utils.ContactUsMessage;
 import java.time.Duration;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @Feature("Contact us Form")
 public class ContactUsFormTests extends BaseTest {
@@ -65,9 +66,9 @@ public class ContactUsFormTests extends BaseTest {
 
         contactUs.sendFormWithAttachment(message);
 
-        assertThat(contactUs.isGreenAlertDisplayed())
+        await().untilAsserted(()->assertThat(contactUs.isGreenAlertDisplayed())
                 .withFailMessage("Green alert is not displayed")
-                .isTrue();
+                .isTrue());
         Allure.step("Assert if green alert is displayed after sending message with attachment");
     }
 
