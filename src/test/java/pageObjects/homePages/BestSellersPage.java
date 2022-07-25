@@ -50,7 +50,7 @@ public class BestSellersPage extends BasePage {
 
     private static String checkPriceReduction(WebElement product) {
         try {
-            return product.findElement(By.className("price-percent-reduction")).getText();
+            return product.findElement(By.cssSelector(".right-block .price-percent-reduction")).getText();
         } catch (NoSuchElementException e) {
             return "";
         }

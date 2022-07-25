@@ -57,8 +57,6 @@ public class BestSellerHoveredProductPage extends BasePage {
     @Step("Click \"Quick view\"")
     public ProductQuickViewPage quickView() {
         quickViewBtn.click();
-        baseWait.until(ExpectedConditions.presenceOfElementLocated(By.id("fancybox-loading")));
-        baseWait.until(ExpectedConditions.invisibilityOfElementLocated(By.id("fancybox-loading")));
         return new ProductQuickViewPage(driver);
     }
 

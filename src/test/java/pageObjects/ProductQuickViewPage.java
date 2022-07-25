@@ -1,5 +1,7 @@
 package pageObjects;
 
+import io.qameta.allure.Step;
+import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,6 +19,7 @@ import java.util.List;
 public class ProductQuickViewPage extends BasePage {
     public ProductQuickViewPage(WebDriver driver) {
         super(driver);
+        loadQuickView();
         driver.switchTo().frame(1);
     }
 
@@ -25,9 +28,11 @@ public class ProductQuickViewPage extends BasePage {
     @CacheLookup
     private WebElement name;
     @FindBy(id = "bigpic")
+    @Getter
     private WebElement bigPic;
     @FindBy(css = "li[id^='thumbnail_']")
     @CacheLookup
+    @Getter
     private List<WebElement> thumbPics;
     @FindBy(css = "p[id='product_reference'] span")
     @CacheLookup
@@ -85,9 +90,13 @@ public class ProductQuickViewPage extends BasePage {
     @FindBy(id = "fancybox-close")
     @CacheLookup
     private WebElement closeFancyBoxBtn;
+    @FindBy(className = "fancybox-error")
+    @Getter
+    private WebElement errorBox;
 
     public ProductQuickViewPage loadQuickView(){
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.presenceOfElementLocated(overlayLoaderLocator));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(overlayLoaderLocator));
         return this;
     }
@@ -96,6 +105,7 @@ public class ProductQuickViewPage extends BasePage {
         return name.getText();
     }
 
+    @Step("Click on big image")
     public ProductPage clickOnBigImage(){
         bigPic.click();
         return new ProductPage(driver);
@@ -109,58 +119,97 @@ public class ProductQuickViewPage extends BasePage {
     public String getCondition(){
         return condition.getText();
     }
+    public String getDesc(){
+        return desc.getText();
+    }
     public int getQuantityAvailable(){
         return Integer.parseInt(quantityAvailable.getText().strip());
     }
     public String getAvailability(){
         return availability.getText().strip();
     }
+    @Step("Share on Tweeter")
     public void shareOnTweeter(){
      tweetBtn.click();
     }
+    @Step("Share on Facebook")
     public void shareOnFaceBook(){
         facebookBtn.click();
     }
+    @Step("Share on Google Plus")
     public void shareOnGooglePlus(){
         googlePlusBtn.click();
     }
+    @Step("Share on Pinterest")
     public void shareOnPinterest(){
         pinterestBtn.click();
     }
     public String getPrice(){
         return price.getText().strip();
     }
+    public String getOldPrice(){
+        return oldPrice.getText().strip();
+    }
+    public String getPriceReduction(){return priceReduction.getText().strip();}
     public int getQuantityWanted(){
        return Integer.parseInt(quantityWanted.getText().strip());
     }
-    public void increaseWantedQuantityByOne(){
+    @Step("Increase wanted quantity with + btn")
+    public ProductQuickViewPage increaseWantedQuantityByOne(){
         increaseQuantityBtn.click();
+        return this;
     }
-    public void decreaseWantedQuantityByOne(){
+    @Step("Decrease wanted quantity with + btn")
+    public ProductQuickViewPage decreaseWantedQuantityByOne(){
         decreaseQuantityBtn.click();
+        return this;
     }
-    public void enterWantedQuantity(int quantity){
+    @Step("Enter wanted quantity")
+    public ProductQuickViewPage enterWantedQuantity(int quantity){
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
+        return this;
     }
-    public void setSize(String size){
+
+    @Step("Enter wanted quantity")
+    public ProductQuickViewPage enterWantedQuantity(float quantity){
+        quantityWanted.clear();
+        quantityWanted.sendKeys(String.valueOf(quantity));
+        return this;
+    }
+
+    @Step("Enter wanted quantity")
+    public ProductQuickViewPage enterWantedQuantity(String quantity){
+        quantityWanted.clear();
+        quantityWanted.sendKeys(quantity);
+        return this;
+    }
+
+    @Step("Set size")
+    public ProductQuickViewPage setSize(String size){
         Select select = new Select(sizeDropDown);
         select.selectByVisibleText(size);
+        return this;
     }
-    public String setColor(int number){
+    @Step("Set color of product by number")
+    public ProductQuickViewPage setColor(int number){
         String color = colors.get(number).getAttribute("name");
         colors.get(number).click();
-        return color;
+        return this;
     }
     public String getSelectedColor(){
        return selectedColor.getAttribute("name").strip();
     }
+    @Step("Add product to cart")
     public LayerCartPage addToCart(){
         addToCartBtn.click();
+        driver.switchTo().defaultContent();
         return new LayerCartPage(driver);
     }
+    @Step("Close quick view")
     public HomePage close(){
         closeFancyBoxBtn.click();
+        driver.switchTo().defaultContent();
         return new HomePage(driver);
     }
 }
