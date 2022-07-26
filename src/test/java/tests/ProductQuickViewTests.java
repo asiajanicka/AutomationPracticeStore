@@ -12,6 +12,7 @@ import pageObjects.ProductQuickViewPage;
 import pageObjects.cartPages.CartBlockProductPage;
 import pageObjects.homePages.BestSellerProductPage;
 import pageObjects.homePages.HomePage;
+import pageObjects.homePages.LayerCartPage;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ProductQuickViewTests extends BaseTest {
     public void testSetup() {
         DriverFactory driverFactory = new DriverFactory();
         driver = driverFactory.create(configuration);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(10));
         driver.navigate().to(configuration.getBaseUrl());
         driver.manage().window().maximize();
 
@@ -188,8 +189,8 @@ public class ProductQuickViewTests extends BaseTest {
 
     @ParameterizedTest
     @ValueSource(ints = {2, 10})
-    @DisplayName("Add given number of items of product to cart")
-    public void shouldAddAFewProductsToCart(int amount) {
+    @DisplayName("Add given quantity of product to cart")
+    public void shouldAddAFewItemsOfProductToCart(int amount) {
         BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
         String expectedName = product.getName();
         product.hover().quickView().enterWantedQuantity(amount).addToCart().closeWindow();
@@ -202,8 +203,8 @@ public class ProductQuickViewTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Add max available amount of product to cart")
-    public void shouldAddMaxAmountOfProductToCart() {
+    @DisplayName("Add max available quantity of product to cart")
+    public void shouldAddMaxQuantityOfProductToCart() {
         BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
         String expectedName = product.getName();
         ProductQuickViewPage productInQuickView = product.hover().quickView();
@@ -219,10 +220,11 @@ public class ProductQuickViewTests extends BaseTest {
                 maxAvailableAmount, expectedName));
     }
 
-    @Test
-    @DisplayName("Don't add 0 items to cart")
-    public void shouldNotAddZeroItemsOfProductToCart() {
-        home.goToBestSellers().getProducts().get(0).hover().quickView().enterWantedQuantity(0).addToCart();
+    @ParameterizedTest
+    @DisplayName("Don't add product with wanted quantity lower then 1 to cart")
+    @ValueSource(strings = {"-5", "-1", "0", "-0.8", "-0,8", "-0.3", "-0,3"})
+    public void shouldDisplayErrorBoxWhenWantedQuantityLessThanOne(String amount) {
+        home.goToBestSellers().getProducts().get(0).hover().quickView().enterWantedQuantity(amount).addToCart();
         assertThat(home.isErrorBoxDisplayed())
                 .withFailMessage("Error box is not displayed")
                 .isTrue();
@@ -235,56 +237,24 @@ public class ProductQuickViewTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't add fractional amount (0;1) of product to cart")
-    public void shouldNotAddFractionalAmountOfProductToCart() {
-        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
-        product.hover().quickView().enterWantedQuantity(0.4f).addToCart();
-        assertThat(home.isErrorBoxDisplayed())
-                .withFailMessage("Error box is not displayed")
-                .isTrue();
-        Allure.step("Assert if error box is displayed");
-        home.closeErrorBox();
-        assertThat(home.getCart().scrollToCart().getProducts())
-                .withFailMessage("Cart is not empty")
-                .isEmpty();
-        Allure.step("Assert if cart is empty");
-    }
-
-    @Test
-    @DisplayName("Round to floor int if factional amount of product (1;oo) is to be added to cart")
-    public void shouldRoundToFloorIntForFractionalAmountOfProductToCart() {
+    @DisplayName("Round to floor int if factional quantity of product (1;oo) is to be added to cart")
+    public void shouldRoundToFloorIntForFractionalQuantityOfProductToCart() {
         BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
         String expectedName = product.getName();
         int expectedAmount = 15;
         product.hover().quickView().enterWantedQuantity(15.9f).addToCart().closeWindow();
         List<CartBlockProductPage> productsInCart = home.getCart().scrollToCart().expandCart();
         assertThat(productsInCart)
-                .withFailMessage("%d items of product %s are not in the cart",expectedAmount, expectedName)
+                .withFailMessage("%d items of product %s are not in the cart", expectedAmount, expectedName)
                 .extracting(p -> p.getName(), p -> p.getQuantity())
                 .contains(tuple(expectedName, expectedAmount));
-        Allure.step(String.format("Assert if %d items of '%s' are in cart", expectedAmount,expectedName));
-    }
-
-    @Test
-    @DisplayName("Don't add negative amount of product to cart")
-    public void shouldNotAddNegativeAmountOfProductToCart() {
-        home.goToBestSellers().getProducts().get(0)
-                .hover().quickView().enterWantedQuantity(-12).addToCart();
-        assertThat(home.isErrorBoxDisplayed())
-                .withFailMessage("Error box is not displayed")
-                .isTrue();
-        Allure.step("Assert if error box is displayed");
-        home.closeErrorBox();
-        assertThat(home.getCart().scrollToCart().getProducts())
-                .withFailMessage("Cart is not empty")
-                .isEmpty();
-        Allure.step("Assert if cart is empty");
+        Allure.step(String.format("Assert if %d items of '%s' are in cart", expectedAmount, expectedName));
     }
 
     @ParameterizedTest
-    @DisplayName("Don't add string amount value of product to cart")
+    @DisplayName("Don't add invalid quantity of product to cart")
     @ValueSource(strings = {"cat", "ABC_+"})
-    public void shouldNotAddStringAmountValueOfProductToCart(String invalidAmount) {
+    public void shouldDisplayErrorBoxIfInvalidQuantityToBeAddedToCart(String invalidAmount) {
         home.goToBestSellers().getProducts().get(0)
                 .hover().quickView().enterWantedQuantity(invalidAmount).addToCart();
         assertThat(home.isErrorBoxDisplayed())
@@ -299,12 +269,12 @@ public class ProductQuickViewTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't add more items of product in one go than available to cart")
+    @DisplayName("Don't add more items of product to cart in one go than available quantity")
     public void shouldNotAddMoreItemsThenAvailableToCart() {
         BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
         ProductQuickViewPage productInQuickView = product.hover().quickView();
         int maxAvailableAmount = productInQuickView.getQuantityAvailable();
-        productInQuickView.enterWantedQuantity(maxAvailableAmount+1).addToCart();
+        productInQuickView.enterWantedQuantity(maxAvailableAmount + 1).addToCart();
         assertThat(home.isErrorBoxDisplayed())
                 .withFailMessage("Error box is not displayed")
                 .isTrue();
@@ -323,7 +293,7 @@ public class ProductQuickViewTests extends BaseTest {
         String productName = product.getName();
         ProductQuickViewPage productInQuickView = product.hover().quickView();
         int maxAvailableAmount = productInQuickView.getQuantityAvailable();
-        int quantityInFirstPart = maxAvailableAmount-1;
+        int quantityInFirstPart = maxAvailableAmount - 1;
         int quantityInSecondPart = 2;
         productInQuickView.enterWantedQuantity(quantityInFirstPart).addToCart().closeWindow();
         home.goToBestSellers().getProducts().get(0).hover()
@@ -340,6 +310,203 @@ public class ProductQuickViewTests extends BaseTest {
                 .isEqualTo(quantityInFirstPart);
         Allure.step("Assert if cart has amount of products added only in first go");
     }
+
+    @Test
+    @DisplayName("Increase wanted quantity by one with plus btn")
+    public void shouldIncreaseWantedQuantityByOne() {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        String productName = product.getName();
+        product.hover().quickView().increaseWantedQuantityByOne().addToCart().closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart instead of 2",
+                        actualQuantity, productName)
+                .isEqualTo(2);
+        Allure.step(String.format("Assert if there are 2 items of product '%s' in the cart", productName));
+    }
+
+    @ParameterizedTest
+    @DisplayName("Increase wanted quantity to 1 with plus btn when entered quantity lower than 1")
+    @ValueSource(strings = {"-5", "-1", "0", "-0.8", "-0,8", "-0.3", "-0,3"})
+    public void shouldIncreaseWantedQuantityToOneWithPlus(String amount) {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        String productName = product.getName();
+        LayerCartPage layerCartPage = product.hover().quickView().enterWantedQuantity(amount).increaseWantedQuantityByOne().addToCart();
+        assertThat(home.isErrorBoxDisplayed())
+                .withFailMessage("Error box is displayed")
+                .isFalse();
+        Allure.step("Assert if error box is not displayed");
+        layerCartPage.closeWindow();
+        assertThat(home.getCart().scrollToCart().getProducts())
+                .withFailMessage("Cart is empty. Was product added to the cart?")
+                .isNotEmpty();
+        Allure.step("Assert if cart is not empty");
+        int actualQuantity = home.getCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart instead of 2",
+                        actualQuantity, productName)
+                .isEqualTo(1);
+        Allure.step(String.format("Assert if there is one item of product '%s' in the cart", productName));
+    }
+
+    @Test
+    @DisplayName("Increase wanted quantity to max available quantity with plus btn")
+    public void shouldIncreaseQuantityToMaxValueWithPlus() {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        String productName = product.getName();
+        ProductQuickViewPage productInQuickView = product.hover().quickView();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, availableQuantity -1, availableQuantity);
+        Allure.step("Assert if max available quantity of product is in cart");
+    }
+
+    @Test
+    @DisplayName("Don’t increase wanted quantity over max available amount with plus btn")
+    public void shouldNotIncreaseQuantityWithPlusIfMaxAvailableEntered() {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        ProductQuickViewPage productInQuickView = product.hover().quickView();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, availableQuantity, availableQuantity);
+        Allure.step("Assert if max available quantity of product is in cart");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Round to ceiling int with plus btn if factional amount of product (1;oo) wanted")
+    @ValueSource(strings = {"1,8", "1.9", "1,3", "1.1"})
+    public void shouldRoundToCeilingWithPlusIfFractionalQuantityWanted(String amount) {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        ProductQuickViewPage productInQuickView = product.hover().quickView();
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, amount, 2);
+        Allure.step("Assert if there are 2 items of product in cart");
+    }
+
+    @Test
+    @DisplayName("Set max available quantity with plus btn when entered quantity exceeds max available amount")
+    public void shouldSetMaxAvailableQuantityWhenWantedQuantityExceedsMaxWithPlus() {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        ProductQuickViewPage productInQuickView = product.hover().quickView();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, availableQuantity + 3, availableQuantity);
+        Allure.step("Assert if max available quantity of product is in cart");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Set max available quantity with plus btn when entered quantity is invalid")
+    @ValueSource(strings = {"cat", "ABC_+"})
+    public void shouldSetMaxAvailableQuantityWhenWantedQuantityIsInvalidWithPlus(String invalidAmount) {
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        ProductQuickViewPage productInQuickView = product.hover().quickView();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, invalidAmount, availableQuantity);
+        Allure.step("Assert if max available quantity of product is in cart");
+    }
+
+    private void verifyQuantityInCartAfterPlusBtn(ProductQuickViewPage productInQuickView,
+                                                  String wantedQuantity,
+                                                  int expectedQuantity) {
+        String productName = productInQuickView.getName();
+        productInQuickView.enterWantedQuantity(wantedQuantity)
+                .increaseWantedQuantityByOne()
+                .addToCart()
+                .closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s', instead of %d",
+                        actualQuantity, productName, expectedQuantity)
+                .isEqualTo(expectedQuantity);
+    }
+
+    private void verifyQuantityInCartAfterPlusBtn(ProductQuickViewPage productInQuickView,
+                                                  int wantedQuantity,
+                                                  int expectedQuantity) {
+        verifyQuantityInCartAfterPlusBtn(productInQuickView, String.valueOf(wantedQuantity), expectedQuantity);
+    }
+
+    @Test
+    @DisplayName("Don’t decrease quantity below 1 with minus btn")
+    public void shouldNotDecreaseQuantityBelowOne(){
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        String productName = product.getName();
+        product.hover().quickView().decreaseWantedQuantityByOne().addToCart().closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart, instead of 1", actualQuantity, product)
+                .isEqualTo(1);
+        Allure.step("Assert if one item of product is in the cart");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Set wanted quantity to 1 with minus btn if entered quantity is less or equal to 2")
+    @ValueSource(strings ={"-5", "-0.8", "-0.3", "0", "0.6", "1.8"})
+    public void shouldSetQuantityToOne(String amount){
+        BestSellerProductPage product = home.goToBestSellers().getProducts().get(0);
+        String productName = product.getName();
+        product.hover().quickView().enterWantedQuantity(amount).decreaseWantedQuantityByOne().addToCart().closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart, instead of 1",
+                        actualQuantity, productName)
+                .isEqualTo(1);
+        Allure.step("Assert if one item of product is in the cart");
+    }
+
+    @Test
+    @DisplayName("Decrease wanted quantity by one with minus btn if entered quantity is in (2, max value>")
+    public void shouldDecreaseQuantityByOne(){
+        ProductQuickViewPage productInQuickView = home.goToBestSellers().getProducts().get(0).hover().quickView();
+        String productName = productInQuickView.getName();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        productInQuickView.enterWantedQuantity(availableQuantity).decreaseWantedQuantityByOne().addToCart().closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        int expectedQuantityInCart = availableQuantity-1;
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart, instead of %d",
+                        actualQuantity, productName, expectedQuantityInCart)
+                .isEqualTo(expectedQuantityInCart);
+        Allure.step("Assert if quantity of product in the cart is equal to max available quantity decrease by one");
+    }
+
+    @Test
+    @DisplayName("Decrease wanted quantity to max available value if entered quantity exceeds max available value")
+    public void shouldDecreaseQuantityToMaxAvailableValue(){
+        ProductQuickViewPage productInQuickView = home.goToBestSellers().getProducts().get(0).hover().quickView();
+        String productName = productInQuickView.getName();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        LayerCartPage layerCart = productInQuickView.enterWantedQuantity(availableQuantity + 20).decreaseWantedQuantityByOne().addToCart();
+        assertThat(home.isErrorBoxDisplayed())
+                .withFailMessage("Error box is displayed")
+                .isFalse();
+        Allure.step("Assert if error box is not displayed");
+        layerCart.closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart, instead of %d",
+                        actualQuantity, productName,  availableQuantity)
+                .isEqualTo( availableQuantity);
+        Allure.step("Assert if quantity of product in the cart is equal to max available quantity");
+    }
+
+    @ParameterizedTest
+    @DisplayName("Set wanted quantity to one if entered quantity has invalid value")
+    @ValueSource(strings = {"KO_T","-1Abc!"})
+    public void shouldSetWantedQuantityToOneIfEnteredQuantityIsInvalid(String amount){
+        ProductQuickViewPage productInQuickView = home.goToBestSellers().getProducts().get(0).hover().quickView();
+        String productName = productInQuickView.getName();
+        int availableQuantity = productInQuickView.getQuantityAvailable();
+        LayerCartPage layerCart = productInQuickView.enterWantedQuantity(amount).decreaseWantedQuantityByOne().addToCart();
+        assertThat(home.isErrorBoxDisplayed())
+                .withFailMessage("Error box is displayed")
+                .isFalse();
+        Allure.step("Assert if error box is not displayed");
+        layerCart.closeWindow();
+        int actualQuantity = home.getCart().scrollToCart().findProductInCart(productName).getQuantity();
+        assertThat(actualQuantity)
+                .withFailMessage("There are %d items of '%s' in cart, instead of %d",
+                        actualQuantity, productName,  1)
+                .isEqualTo(1);
+        Allure.step("Assert if quantity of product in the cart is equal to 1");
+    }
+
 
 //    @Test
 //    @DisplayName("Add product in all available colors to cart")

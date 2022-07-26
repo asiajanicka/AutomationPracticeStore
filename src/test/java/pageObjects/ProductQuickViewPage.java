@@ -72,10 +72,10 @@ public class ProductQuickViewPage extends BasePage {
     private WebElement oldPrice;
     @FindBy(id = "quantity_wanted")
     private WebElement quantityWanted;
-    @FindBy(className = "icon-minus")
+    @FindBy(className = "icon-plus")
     @CacheLookup
     private WebElement increaseQuantityBtn;
-    @FindBy(className = "icon-plus")
+    @FindBy(className = "icon-minus")
     @CacheLookup
     private WebElement decreaseQuantityBtn;
     @FindBy(id = "group_1")
@@ -183,6 +183,10 @@ public class ProductQuickViewPage extends BasePage {
         quantityWanted.clear();
         quantityWanted.sendKeys(quantity);
         return this;
+    }
+
+    public String getWantedQuantity(){
+        return quantityWanted.getAttribute("value");
     }
 
     @Step("Set size")
