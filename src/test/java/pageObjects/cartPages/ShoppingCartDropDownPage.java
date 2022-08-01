@@ -68,12 +68,19 @@ public class ShoppingCartDropDownPage extends BasePage {
     }
 
     @Step("Find product {0} in cart")
-    public CartBlockProductPage findProductInCart(String fullName) {
+    public CartBlockProductPage findProductInCartByName(String fullName) {
         List<CartBlockProductPage> products = expandCart().stream().filter(el -> (el.getFullName().equals(fullName))
         ).collect(Collectors.toList());
         if (products.size() == 1) return products.get(0);
         if (products.isEmpty()) return null;
         else throw new IllegalStateException("There are more then one product with given name in cart");
+    }
+
+    @Step("Find products {0} in cart")
+    public List<CartBlockProductPage> findProductsInCartByName(String fullName) {
+        List<CartBlockProductPage> products = expandCart().stream().filter(el -> (el.getFullName().equals(fullName))
+        ).collect(Collectors.toList());
+        return products;
     }
 
     public CartPage clickOnCartBar() {

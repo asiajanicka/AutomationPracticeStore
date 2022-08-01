@@ -72,7 +72,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
         softly.assertThat(home.getCart().isCartContainerDisplayed())
                 .withFailMessage("The cart is not expanded").isTrue();
 //        find product in cart
-        CartBlockProductPage productInCart = home.getCart().findProductInCart(productName);
+        CartBlockProductPage productInCart = home.getCart().findProductInCartByName(productName);
 //        assert product properties in cart
         softly.assertThat(productInCart.getFullName())
                 .withFailMessage("Product full name in cart is different then %s", productName)
@@ -140,7 +140,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
                 .withFailMessage("There are %d entries in cart product list, instead of 1", cartListSize)
                 .isEqualTo(1);
 
-        CartBlockProductPage productInCart = home.getCart().findProductInCart(productName);
+        CartBlockProductPage productInCart = home.getCart().findProductInCartByName(productName);
 //        assert product properties in cart
         softly.assertThat(productInCart.getFullName())
                 .withFailMessage("Product full name in cart is different then %s", productName)
@@ -238,7 +238,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     public void shouldSeePartOfProductNameInCartIfNameTooLong() {
         String productNameLong = testData.getProductNames()[1];
         home.goToBestSellers().getProduct(productNameLong).hover().addToCart().closeWindow();
-        String actualProductNameInCart = home.getCart().findProductInCart(productNameLong).getName();
+        String actualProductNameInCart = home.getCart().findProductInCartByName(productNameLong).getName();
 
         assertThat(actualProductNameInCart)
                 .withFailMessage("Product name in Best Sellers is the same as in cart")
@@ -283,7 +283,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
         Allure.step("Assert if cart label displays 2 products");
 
 //        remove first product from cart
-        home.getCart().findProductInCart(product_1_name).removeProduct();
+        home.getCart().findProductInCartByName(product_1_name).removeProduct();
 
 //        check if cart remains expanded
         assertThat(home.getCart().isCartContainerDisplayed()).
@@ -311,7 +311,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
         Allure.step(String.format("Assert if total cost decreased by price of %s", product_1_name));
 
 //        remove second product from cart
-        home.getCart().findProductInCart(product_2_name).removeProduct();
+        home.getCart().findProductInCartByName(product_2_name).removeProduct();
         assertThat(home.getCart().isCartContainerCollapsed()).
                 withFailMessage("Cart is not collapsed")
                 .isTrue();
@@ -336,7 +336,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     public void shouldGoToProductPageAfterClickOnProductNameInCart() {
         String productName = testData.getProductNames()[1];
         home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
-        ProductPage productPage = home.getCart().findProductInCart(productName).clickOnName();
+        ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnName();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
                 .isEqualTo(productName);
@@ -348,7 +348,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     public void shouldGoToProductPageAfterClickOnProductImgInCart() {
         String productName = testData.getProductNames()[2];
         home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
-        ProductPage productPage = home.getCart().findProductInCart(productName).clickOnImg();
+        ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnImg();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
                 .isEqualTo(productName);
@@ -360,7 +360,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     public void shouldGoToProductPageAfterClickOnProductAttributesInCart() {
         String productName = testData.getProductNames()[1];
         home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
-        ProductPage productPage = home.getCart().findProductInCart(productName).clickOnAttributes();
+        ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnAttributes();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
                 .isEqualTo(productName);

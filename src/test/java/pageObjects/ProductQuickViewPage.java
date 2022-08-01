@@ -15,6 +15,7 @@ import pageObjects.homePages.LayerCartPage;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProductQuickViewPage extends BasePage {
     public ProductQuickViewPage(WebDriver driver) {
@@ -87,14 +88,14 @@ public class ProductQuickViewPage extends BasePage {
     @FindBy(id = "add_to_cart")
     @CacheLookup
     private WebElement addToCartBtn;
-    @FindBy(id = "fancybox-close")
-    @CacheLookup
+    @FindBy(className = "fancybox-close")
+//    @CacheLookup
     private WebElement closeFancyBoxBtn;
     @FindBy(className = "fancybox-error")
     @Getter
     private WebElement errorBox;
 
-    public ProductQuickViewPage loadQuickView(){
+    public ProductQuickViewPage loadQuickView() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.presenceOfElementLocated(overlayLoaderLocator));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(overlayLoaderLocator));
@@ -106,114 +107,114 @@ public class ProductQuickViewPage extends BasePage {
     }
 
     @Step("Click on big image")
-    public ProductPage clickOnBigImage(){
+    public ProductPage clickOnBigImage() {
         bigPic.click();
         return new ProductPage(driver);
     }
-    public int getNumberOfThumbImages(){
+
+    public int getNumberOfThumbImages() {
         return thumbPics.size();
     }
+
     public String getReferenceNo() {
         return referenceNo.getText();
     }
-    public String getCondition(){
+
+    public String getCondition() {
         return condition.getText();
     }
-    public String getDesc(){
+
+    public String getDesc() {
         return desc.getText();
     }
-    public int getQuantityAvailable(){
+
+    public int getQuantityAvailable() {
         return Integer.parseInt(quantityAvailable.getText().strip());
     }
-    public String getAvailability(){
+
+    public String getAvailability() {
         return availability.getText().strip();
     }
+
     @Step("Share on Tweeter")
-    public void shareOnTweeter(){
-     tweetBtn.click();
+    public void shareOnTweeter() {
+        tweetBtn.click();
     }
+
     @Step("Share on Facebook")
-    public void shareOnFaceBook(){
+    public void shareOnFaceBook() {
         facebookBtn.click();
     }
     @Step("Share on Google Plus")
-    public void shareOnGooglePlus(){
+    public void shareOnGooglePlus() {
         googlePlusBtn.click();
     }
     @Step("Share on Pinterest")
-    public void shareOnPinterest(){
+    public void shareOnPinterest() {
         pinterestBtn.click();
     }
-    public String getPrice(){
+    public String getPrice() {
         return price.getText().strip();
     }
-    public String getOldPrice(){
+    public String getOldPrice() {
         return oldPrice.getText().strip();
     }
-    public String getPriceReduction(){return priceReduction.getText().strip();}
-    public int getQuantityWanted(){
-       return Integer.parseInt(quantityWanted.getText().strip());
+    public String getPriceReduction() {
+        return priceReduction.getText().strip();
+    }
+    public int getQuantityWanted() {
+        return Integer.parseInt(quantityWanted.getText().strip());
     }
     @Step("Increase wanted quantity with + btn")
-    public ProductQuickViewPage increaseWantedQuantityByOne(){
+    public ProductQuickViewPage increaseWantedQuantityByOne() {
         increaseQuantityBtn.click();
         return this;
     }
     @Step("Decrease wanted quantity with + btn")
-    public ProductQuickViewPage decreaseWantedQuantityByOne(){
+    public ProductQuickViewPage decreaseWantedQuantityByOne() {
         decreaseQuantityBtn.click();
         return this;
     }
     @Step("Enter wanted quantity")
-    public ProductQuickViewPage enterWantedQuantity(int quantity){
+    public ProductQuickViewPage enterWantedQuantity(int quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
         return this;
     }
-
     @Step("Enter wanted quantity")
-    public ProductQuickViewPage enterWantedQuantity(float quantity){
+    public ProductQuickViewPage enterWantedQuantity(float quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
         return this;
     }
-
     @Step("Enter wanted quantity")
-    public ProductQuickViewPage enterWantedQuantity(String quantity){
+    public ProductQuickViewPage enterWantedQuantity(String quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(quantity);
         return this;
     }
-
-    public String getWantedQuantity(){
-        return quantityWanted.getAttribute("value");
-    }
-
     @Step("Set size")
-    public ProductQuickViewPage setSize(String size){
+    public ProductQuickViewPage setSize(String size) {
         Select select = new Select(sizeDropDown);
         select.selectByVisibleText(size);
         return this;
     }
     @Step("Set color of product by number")
-    public ProductQuickViewPage setColor(int number){
+    public ProductQuickViewPage setColor(int number) {
         String color = colors.get(number).getAttribute("name");
         colors.get(number).click();
         return this;
     }
-    public String getSelectedColor(){
-       return selectedColor.getAttribute("name").strip();
+    public List<String> getAvailableColors() {
+        return colors.stream().map(c -> c.getAttribute("name")).collect(Collectors.toList());
+    }
+    public String getSelectedColor() {
+        return selectedColor.getAttribute("name").strip();
     }
     @Step("Add product to cart")
-    public LayerCartPage addToCart(){
+    public LayerCartPage addToCart() {
         addToCartBtn.click();
         driver.switchTo().defaultContent();
         return new LayerCartPage(driver);
-    }
-    @Step("Close quick view")
-    public HomePage close(){
-        closeFancyBoxBtn.click();
-        driver.switchTo().defaultContent();
-        return new HomePage(driver);
     }
 }

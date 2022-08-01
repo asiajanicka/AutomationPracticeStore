@@ -32,7 +32,6 @@ public class HomePage extends BasePage {
     @CacheLookup
     private WebElement closeErrorBoxCross;
 
-
     public HomePage(WebDriver driver) {
         super(driver);
         slider = new SliderPage(driver);
@@ -75,5 +74,4 @@ public class HomePage extends BasePage {
         closeErrorBoxCross.click();
         return this;
     }
-
 }
