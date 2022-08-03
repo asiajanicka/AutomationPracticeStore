@@ -38,6 +38,7 @@ public class ProductQuickViewTests extends BaseTest {
         home = new HomePage(driver);
     }
 
+
     @Test
     @DisplayName("Display basic info about product")
     public void shouldSeeBasicInfoAboutProduct() {
@@ -124,7 +125,7 @@ public class ProductQuickViewTests extends BaseTest {
         }
         assertThat(windowTitles)
                 .withFailMessage("Assert if page title contains word 'Facebook'")
-                .anySatisfy(title -> assertThat(title.contains("Facebook")));
+                .contains("Facebook");
         Allure.step("Assert if Facebook opens after click on Facebook share button");
     }
 
@@ -138,8 +139,8 @@ public class ProductQuickViewTests extends BaseTest {
             windowTitles.add(driver.switchTo().window(winId).getTitle());
         }
         assertThat(windowTitles)
-                .withFailMessage("Assert if page title contains word 'Tweeter'")
-                .anySatisfy(title -> assertThat(title.contains("Tweeter")));
+                .withFailMessage("Assert if page title contains word 'Twitter'")
+                .contains(("Twitter"));
         Allure.step("Assert if Tweeter opens after click on Tweeter share button");
     }
 
@@ -251,7 +252,7 @@ public class ProductQuickViewTests extends BaseTest {
         Allure.step(String.format("Assert if %d items of '%s' are in cart", expectedAmount, expectedName));
     }
 
-    @ParameterizedTest(name = "{displayName} : {arguments}")
+    @ParameterizedTest(name = "{displayName}: {arguments}")
     @DisplayName("Do not add invalid quantity of product to cart")
     @ValueSource(strings = {"cat", "ABC_+"})
     public void shouldDisplayErrorBoxIfInvalidQuantityToBeAddedToCart(String invalidAmount) {
@@ -267,6 +268,7 @@ public class ProductQuickViewTests extends BaseTest {
                 .isEmpty();
         Allure.step("Assert if cart is empty");
     }
+
     @Test
     @DisplayName("Don't add more items of product to cart in one go than available quantity")
     public void shouldNotAddMoreItemsThenAvailableToCart() {
@@ -578,8 +580,8 @@ public class ProductQuickViewTests extends BaseTest {
                 .withFailMessage("Quantity of product '%s' in cart is %d instead of %d",
                         productName, actualQuantity_S, expectedQuantity_S)
                 .isEqualTo(expectedQuantity_S);
-        Allure.step(String.format("Assert if there are %d items of product '%s %s' in cart"
-                ,productName, attributes_S, expectedQuantity_S));
+        Allure.step(String.format("Assert if there are %d items of product '%s %s' in cart",
+                expectedQuantity_S, productName, attributes_S));
         assertThat(attributes_S).withFailMessage("Product '%s' in cart is '%s' instead of '%s'",
                         productName, attributes_S, expectedColor_S)
                 .endsWith(expectedColor_S);
@@ -588,7 +590,7 @@ public class ProductQuickViewTests extends BaseTest {
                 .withFailMessage("Product '%s' in cart is '%s' instead of '%s'",
                         productName, attributes_S, expectedSize_S)
                 .startsWith(expectedSize_S + ",");
-        Allure.step(String.format("Assert if size of product '%s' is %s",productName, expectedSize_S));
+        Allure.step(String.format("Assert if size of product '%s' is %s", productName, expectedSize_S));
 
         int actualQuantityForProductInSizeL = productsInCart.get(1).getQuantity();
         String attributes_L = productsInCart.get(1).getAttributes();
@@ -597,7 +599,7 @@ public class ProductQuickViewTests extends BaseTest {
                         productName, actualQuantityForProductInSizeL, expectedQuantity_L)
                 .isEqualTo(expectedQuantity_L);
         Allure.step(String.format("Assert if there are %d items of product '%s %s' in cart",
-                productName, attributes_L, expectedQuantity_L));
+                expectedQuantity_L, productName, attributes_L));
         assertThat(attributes_L).withFailMessage("Product '%s' in cart is '%s' instead of '%s'",
                         productName, attributes_L, expectedColor_L)
                 .endsWith(expectedColor_L);
