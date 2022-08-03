@@ -12,13 +12,15 @@ import pageObjects.cartPages.ShoppingCartDropDownPage;
 @Getter
 public class HomePage extends BasePage {
 
-    private SliderPage slider;
-    private BestSellersPage bestSellers;
-    private ShoppingCartDropDownPage cart;
+    private final SliderPage slider;
+    private final BestSellersPage bestSellers;
+    private final ShoppingCartDropDownPage cart;
 
     @FindBy(css = "#home-page-tabs .blockbestsellers")
+    @CacheLookup
     private WebElement bestSellersTab;
     @FindBy(css = "#home-page-tabs .homefeatured")
+    @CacheLookup
     private WebElement popularItems;
     @FindBy(css = "#home-page-tabs .active >a")
     private WebElement activeTab;

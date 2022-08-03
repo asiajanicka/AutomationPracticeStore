@@ -20,7 +20,7 @@ import java.time.Duration;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-@Feature("Contact us Form")
+@Feature("Contact Us Form")
 public class ContactUsFormTests extends BaseTest {
 
     private ContactUsPage contactUs;
@@ -259,7 +259,7 @@ public class ContactUsFormTests extends BaseTest {
                 .contains(contactUsLabel);
     }
 
-    @Step("Verify number of entries in subject list")
+    @Step("Verify if subject list is not empty")
     public void verifyNumberOfEntriesInSubjectList(SoftAssertions softly) {
         softly.assertThat(contactUs.getNumberOfAvailableSubjects())
                 .withFailMessage(" There should be at least one subject in the list, " +
@@ -267,5 +267,4 @@ public class ContactUsFormTests extends BaseTest {
                         , contactUs.getNumberOfAvailableSubjects())
                 .isGreaterThanOrEqualTo(1);
     }
-
 }

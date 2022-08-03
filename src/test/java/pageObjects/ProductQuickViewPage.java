@@ -10,7 +10,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import pageObjects.homePages.HomePage;
 import pageObjects.homePages.LayerCartPage;
 
 import java.time.Duration;
@@ -115,32 +114,25 @@ public class ProductQuickViewPage extends BasePage {
     public int getNumberOfThumbImages() {
         return thumbPics.size();
     }
-
     public String getReferenceNo() {
         return referenceNo.getText();
     }
-
     public String getCondition() {
         return condition.getText();
     }
-
     public String getDesc() {
         return desc.getText();
     }
-
     public int getQuantityAvailable() {
         return Integer.parseInt(quantityAvailable.getText().strip());
     }
-
     public String getAvailability() {
         return availability.getText().strip();
     }
-
-    @Step("Share on Tweeter")
-    public void shareOnTweeter() {
+    @Step("Share on Twitter")
+    public void shareOnTwitter() {
         tweetBtn.click();
     }
-
     @Step("Share on Facebook")
     public void shareOnFaceBook() {
         facebookBtn.click();
@@ -175,13 +167,13 @@ public class ProductQuickViewPage extends BasePage {
         decreaseQuantityBtn.click();
         return this;
     }
-    @Step("Enter wanted quantity")
+    @Step("Enter wanted quantity: {0}")
     public ProductQuickViewPage enterWantedQuantity(int quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
         return this;
     }
-    @Step("Enter wanted quantity")
+    @Step("Enter wanted quantity: {0}")
     public ProductQuickViewPage enterWantedQuantity(float quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
@@ -193,7 +185,7 @@ public class ProductQuickViewPage extends BasePage {
         quantityWanted.sendKeys(quantity);
         return this;
     }
-    @Step("Set size")
+    @Step("Set size: {0}")
     public ProductQuickViewPage setSize(String size) {
         Select select = new Select(sizeDropDown);
         select.selectByVisibleText(size);

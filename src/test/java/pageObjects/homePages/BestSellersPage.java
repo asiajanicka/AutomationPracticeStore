@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import pageObjects.BasePage;
 
@@ -21,6 +22,7 @@ public class BestSellersPage extends BasePage {
     }
 
     @FindBy(css = "#blockbestsellers .ajax_block_product")
+    @CacheLookup
     private List<WebElement> bestSellers;
 
     @Step("Get products in Best Sellers")

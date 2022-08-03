@@ -5,6 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import pageObjects.BasePage;
 
@@ -19,6 +20,7 @@ public class ShoppingCartDropDownPage extends BasePage {
     }
 
     @FindBy(css = ".shopping_cart>a")
+    @CacheLookup
     private WebElement cart;
     @FindBy(className = "cart_block_list")
     private WebElement cartContainer;
@@ -37,6 +39,7 @@ public class ShoppingCartDropDownPage extends BasePage {
     @FindBy(className = "cart_block_total")
     private WebElement totalCost;
     @FindBy(id = "button_order_cart")
+    @CacheLookup
     private WebElement checkOutBth;
 
     @Step("Scroll to cart")
@@ -78,9 +81,8 @@ public class ShoppingCartDropDownPage extends BasePage {
 
     @Step("Find products {0} in cart")
     public List<CartBlockProductPage> findProductsInCartByName(String fullName) {
-        List<CartBlockProductPage> products = expandCart().stream().filter(el -> (el.getFullName().equals(fullName))
+        return expandCart().stream().filter(el -> (el.getFullName().equals(fullName))
         ).collect(Collectors.toList());
-        return products;
     }
 
     public CartPage clickOnCartBar() {
@@ -105,7 +107,7 @@ public class ShoppingCartDropDownPage extends BasePage {
     }
 
     public int getQuantity() {
-        return Integer.valueOf(quantity.getText().strip());
+        return Integer.parseInt(quantity.getText().strip());
     }
 
     public String getShippingCost() {
@@ -113,7 +115,7 @@ public class ShoppingCartDropDownPage extends BasePage {
     }
 
     public BigDecimal getShippingCostValue() {
-        String cost = getShippingCost().replaceAll("[^0-9.,]", "");
+        String cost = getShippingCost().replaceAll("[^\\d.,]", "");
         return new BigDecimal(cost);
     }
 
@@ -122,7 +124,7 @@ public class ShoppingCartDropDownPage extends BasePage {
     }
 
     public BigDecimal getTotalCostValue() {
-        String cost = getTotalCost().replaceAll("[^0-9.,]", "");
+        String cost = getTotalCost().replaceAll("[^\\d.,]", "");
         return new BigDecimal(cost);
     }
 

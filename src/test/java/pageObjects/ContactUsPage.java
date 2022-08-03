@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 import utils.ContactUsMessage;
@@ -21,19 +22,19 @@ public class ContactUsPage extends BasePage{
     private WebElement emailInput;
     @FindBy(id = "id_order")
     private WebElement orderReferenceInput;
-    @FindBy(className = "filename")
-    private WebElement attachFileBox;
     @FindBy(id = "fileUpload")
     private WebElement attachmentInput;
     @FindBy(id = "message")
     private WebElement messageTextArea;
     @FindBy(id = "submitMessage")
+    @CacheLookup
     private WebElement sendBtn;
     @FindBy(className = "alert-danger")
     private WebElement redAlert;
     @FindBy(className = "alert-success")
     private WebElement greenAlert;
     @FindBy(css = ".footer_links .btn")
+    @CacheLookup
     private WebElement homeBtn;
 
     public boolean isRedAlertDisplayed(){

@@ -13,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class BestSellerProductPage extends BasePage {
-
     WebDriver driver;
 
     WebElement container;
@@ -86,22 +85,23 @@ public class BestSellerProductPage extends BasePage {
     }
 
     public BigDecimal getPriceValue() {
-        String price = getPrice().replaceAll("[^0-9.,]", "");
+        String price = getPrice().replaceAll("[^\\d.,]", "");
         return new BigDecimal(price);
     }
 
     public BigDecimal getOldPriceValue() {
         if(!oldPrice.isEmpty()) {
-            String price = getOldPrice().replaceAll("[^0-9.,]", "");
+            String price = getOldPrice().replaceAll("[^\\d.,]", "");
             return new BigDecimal(price);
         } else throw new IllegalArgumentException("This product is not discounted so it doesn't have an old price");
     }
 
     public boolean hasHyperLink(WebElement element){
-        boolean isLinkPresent = false;
+        boolean isLinkPresent;
         try{
             isLinkPresent = !element.getAttribute("href").isEmpty();
         } catch (Exception e){
+            isLinkPresent = false;
         }
         return isLinkPresent;
     }
