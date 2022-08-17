@@ -24,6 +24,8 @@ public class ProductQuickViewPage extends BasePage {
     }
 
     private By overlayLoaderLocator = By.id("fancybox-loading");
+    //    private By quickViewWrapperLocator = By.cssSelector(".fancybox-wrap");
+    private By quickViewWrapperLocator = By.cssSelector("fancybox-skin");
     @FindBy(css = "#product .pb-center-column [itemprop='name']")
     @CacheLookup
     private WebElement name;
@@ -88,7 +90,6 @@ public class ProductQuickViewPage extends BasePage {
     @CacheLookup
     private WebElement addToCartBtn;
     @FindBy(className = "fancybox-close")
-//    @CacheLookup
     private WebElement closeFancyBoxBtn;
     @FindBy(className = "fancybox-error")
     @Getter
@@ -108,105 +109,133 @@ public class ProductQuickViewPage extends BasePage {
     @Step("Click on big image")
     public ProductPage clickOnBigImage() {
         bigPic.click();
+        driver.switchTo().defaultContent();
         return new ProductPage(driver);
     }
 
     public int getNumberOfThumbImages() {
         return thumbPics.size();
     }
+
     public String getReferenceNo() {
         return referenceNo.getText();
     }
+
     public String getCondition() {
         return condition.getText();
     }
+
     public String getDesc() {
         return desc.getText();
     }
+
     public int getQuantityAvailable() {
         return Integer.parseInt(quantityAvailable.getText().strip());
     }
+
     public String getAvailability() {
         return availability.getText().strip();
     }
+
     @Step("Share on Twitter")
     public void shareOnTwitter() {
         tweetBtn.click();
     }
+
     @Step("Share on Facebook")
     public void shareOnFaceBook() {
         facebookBtn.click();
+
     }
+
     @Step("Share on Google Plus")
     public void shareOnGooglePlus() {
         googlePlusBtn.click();
     }
+
     @Step("Share on Pinterest")
     public void shareOnPinterest() {
         pinterestBtn.click();
     }
+
     public String getPrice() {
         return price.getText().strip();
     }
+
     public String getOldPrice() {
         return oldPrice.getText().strip();
     }
+
     public String getPriceReduction() {
         return priceReduction.getText().strip();
     }
+
     public int getQuantityWanted() {
         return Integer.parseInt(quantityWanted.getText().strip());
     }
+
     @Step("Increase wanted quantity with + btn")
     public ProductQuickViewPage increaseWantedQuantityByOne() {
         increaseQuantityBtn.click();
         return this;
     }
+
     @Step("Decrease wanted quantity with + btn")
     public ProductQuickViewPage decreaseWantedQuantityByOne() {
         decreaseQuantityBtn.click();
         return this;
     }
+
     @Step("Enter wanted quantity: {0}")
     public ProductQuickViewPage enterWantedQuantity(int quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
         return this;
     }
+
     @Step("Enter wanted quantity: {0}")
     public ProductQuickViewPage enterWantedQuantity(float quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(String.valueOf(quantity));
         return this;
     }
+
     @Step("Enter wanted quantity")
     public ProductQuickViewPage enterWantedQuantity(String quantity) {
         quantityWanted.clear();
         quantityWanted.sendKeys(quantity);
         return this;
     }
+
     @Step("Set size: {0}")
     public ProductQuickViewPage setSize(String size) {
         Select select = new Select(sizeDropDown);
         select.selectByVisibleText(size);
         return this;
     }
+
     @Step("Set color of product by number")
     public ProductQuickViewPage setColor(int number) {
         String color = colors.get(number).getAttribute("name");
         colors.get(number).click();
         return this;
     }
+
     public List<String> getAvailableColors() {
         return colors.stream().map(c -> c.getAttribute("name")).collect(Collectors.toList());
     }
+
     public String getSelectedColor() {
         return selectedColor.getAttribute("name").strip();
     }
+
     @Step("Add product to cart")
     public LayerCartPage addToCart() {
         addToCartBtn.click();
         driver.switchTo().defaultContent();
+
+        baseWait.until(ExpectedConditions.invisibilityOfElementLocated(quickViewWrapperLocator));
+
         return new LayerCartPage(driver);
     }
 }

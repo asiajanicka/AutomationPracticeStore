@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObjects.BasePage;
 import pageObjects.cartPages.ShoppingCartDropDownPage;
 
@@ -27,11 +28,9 @@ public class HomePage extends BasePage {
     @FindBy(css = ".tab-content .active")
     private WebElement activeTabContent;
     @FindBy(className = "fancybox-error")
-    @CacheLookup
     @Getter
     private WebElement errorBox;
     @FindBy(className = "fancybox-close")
-    @CacheLookup
     private WebElement closeErrorBoxCross;
 
     public HomePage(WebDriver driver) {
@@ -73,6 +72,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage closeErrorBox(){
+        baseWait.until(ExpectedConditions.visibilityOf(closeErrorBoxCross));
         closeErrorBoxCross.click();
         return this;
     }

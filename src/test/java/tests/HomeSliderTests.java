@@ -1,6 +1,5 @@
 package tests;
 
-import drivers.DriverFactory;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import org.assertj.core.api.SoftAssertions;
@@ -9,8 +8,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebElement;
 import pageObjects.homePages.HomePage;
-
-import java.time.Duration;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -24,12 +21,8 @@ public class HomeSliderTests extends BaseTest {
 
     @BeforeEach
     public void testSetup() {
-        DriverFactory driverFactory = new DriverFactory();
-        driver = driverFactory.create(configuration);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        super.testSetup();
         driver.navigate().to(configuration.getBaseUrl());
-        driver.manage().window().maximize();
-
         home = new HomePage(driver);
     }
 

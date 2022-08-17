@@ -1,10 +1,12 @@
 package pageObjects.homePages;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObjects.BasePage;
 
 public class LayerCartPage extends BasePage {
@@ -21,13 +23,10 @@ public class LayerCartPage extends BasePage {
     @CacheLookup
     private WebElement crossButton;
 
-    public boolean isCrossDisplayed(){
-        return isElementDisplayed(crossButton);
-    }
-
     @Step("Close layer cart window with X")
     public void closeWindow(){
-        isCrossDisplayed();
+        baseWait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("fancybox-overlay")));
+        baseWait.until(ExpectedConditions.elementToBeClickable(crossButton));
         crossButton.click();
     }
 }

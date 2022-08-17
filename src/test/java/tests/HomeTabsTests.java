@@ -1,6 +1,5 @@
 package tests;
 
-import drivers.DriverFactory;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
 import org.assertj.core.api.SoftAssertions;
@@ -14,7 +13,6 @@ import pageObjects.homePages.BestSellerProductPage;
 import pageObjects.homePages.HomePage;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.List;
 
 import static enums.Stock.IN_STOCK;
@@ -28,12 +26,8 @@ public class HomeTabsTests extends BaseTest {
 
     @BeforeEach
     public void testSetup() {
-        DriverFactory driverFactory = new DriverFactory();
-        driver = driverFactory.create(configuration);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        super.testSetup();
         driver.navigate().to(configuration.getBaseUrl());
-        driver.manage().window().maximize();
-
         home = new HomePage(driver);
     }
 
@@ -237,7 +231,7 @@ public class HomeTabsTests extends BaseTest {
         String productName = testData.getProductNames()[1];
         BestSellerProductPage product = home.goToBestSellers().getProduct(productName);
         String expectedPrice = product.getPrice();
-        BestSellerHoveredProductPage productHovered = product.hover();
+        BestSellerHoveredProductPage productHovered = product.getProductOnHover();
         String actualPrice = productHovered.getPrice();
         String availability = productHovered.getAvailability(appProperties.getCurrency());
 
@@ -263,7 +257,7 @@ public class HomeTabsTests extends BaseTest {
         BestSellerProductPage discountedProduct = home.goToBestSellers().getProduct(discountedProductName);
         String expectedOldPrice = discountedProduct.getOldPrice();
         String expectedPriceReduction = discountedProduct.getPricePercentReduction();
-        BestSellerHoveredProductPage productHovered = discountedProduct.hover();
+        BestSellerHoveredProductPage productHovered = discountedProduct.getProductOnHover();
         String actualOldPrice = productHovered.getOldPrice();
         String actualPriceReduction = productHovered.getPricePercentageReduction();
 
@@ -286,7 +280,7 @@ public class HomeTabsTests extends BaseTest {
     @DisplayName("Go to product page after click on \"More\"")
     public void shouldGoToProductPageAfterClickOnMoreBtn() {
         String expectedName = testData.getProductNames()[0];
-        ProductPage productPage = home.goToBestSellers().getProduct(expectedName).hover().viewMore();
+        ProductPage productPage = home.goToBestSellers().getProduct(expectedName).getProductOnHover().viewMore();
 
         assertThat(productPage.getName())
                 .withFailMessage("After click on \"More\" user was redirected to another page " +
@@ -300,7 +294,7 @@ public class HomeTabsTests extends BaseTest {
     @DisplayName("Quick view product")
     public void shouldSeeQuickViewPageAfterClickOnQuickViewBtn() {
         String expectedName = testData.getProductNames()[0];
-        ProductQuickViewPage quickView = home.goToBestSellers().getProduct(expectedName).hover().quickView();
+        ProductQuickViewPage quickView = home.goToBestSellers().getProduct(expectedName).getProductOnHover().quickView();
 
         assertThat(quickView.getName())
                 .withFailMessage("Quick view shows info about different product then \"%s\"", expectedName)
@@ -312,7 +306,7 @@ public class HomeTabsTests extends BaseTest {
     @DisplayName("Add product to cart")
     public void shouldAddProductToCart() {
         String expectedName = testData.getProductNames()[0];
-        home.goToBestSellers().getProduct(expectedName).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(expectedName).getProductOnHover().addToCart().closeWindow();
 
         assertThat(home.getCart().expandCart())
                 .extracting(p -> p.getFullName())
@@ -327,7 +321,7 @@ public class HomeTabsTests extends BaseTest {
         String expectedName = testData.getProductNames()[0];
         int numberOfItems = 3;
         for (int i = 0; i < numberOfItems; i++) {
-            home.goToBestSellers().getProduct(expectedName).hover().addToCart().closeWindow();
+            home.goToBestSellers().getProduct(expectedName).getProductOnHover().addToCart().closeWindow();
         }
 
         assertThat(home.getCart().expandCart())
@@ -342,11 +336,11 @@ public class HomeTabsTests extends BaseTest {
     @DisplayName("Add three different products to cart")
     public void shouldAddThreeDifferentProductsToCart() {
         String product_1_name = testData.getProductNames()[0];
-        home.goToBestSellers().getProduct(product_1_name).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(product_1_name).getProductOnHover().addToCart().closeWindow();
         String product_2_name = testData.getProductNames()[1];
-        home.goToBestSellers().getProduct(product_2_name).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(product_2_name).getProductOnHover().addToCart().closeWindow();
         String product_3_name = testData.getProductNames()[2];
-        home.goToBestSellers().getProduct(product_3_name).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(product_3_name).getProductOnHover().addToCart().closeWindow();
 
         assertThat(home.getCart().expandCart())
                 .extracting(p -> p.getFullName(), p -> p.getQuantity())

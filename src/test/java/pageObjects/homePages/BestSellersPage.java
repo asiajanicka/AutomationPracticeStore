@@ -15,10 +15,8 @@ import java.util.stream.Collectors;
 
 public class BestSellersPage extends BasePage {
 
-    WebDriver driver;
     protected BestSellersPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
     }
 
     @FindBy(css = "#blockbestsellers .ajax_block_product")

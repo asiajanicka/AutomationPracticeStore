@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import pageObjects.BasePage;
 import pageObjects.ProductPage;
@@ -20,20 +21,26 @@ public class BestSellerHoveredProductPage extends BasePage {
     }
 
     @FindBy(css = "#blockbestsellers .hovered")
+    @CacheLookup
     private WebElement hoveredProduct;
     @FindBy(css = "#blockbestsellers .hovered .quick-view")
+    @CacheLookup
     private WebElement quickViewBtn;
     @FindBy(css = "#blockbestsellers .hovered .left-block .price")
+    @CacheLookup
     private WebElement price;
     @Getter
     private String oldPrice;
     @Getter
     private String pricePercentageReduction;
     @FindBy(css = "#blockbestsellers .hovered .content_price")
+    @CacheLookup
     private WebElement availability;
     @FindBy(css = "#blockbestsellers .hovered .right-block a[title='Add to cart']")
+    @CacheLookup
     private WebElement addToCartBtn;
     @FindBy(css = "#blockbestsellers .hovered .right-block a[title='View']")
+    @CacheLookup
     private WebElement moreBtn;
 
 
@@ -47,7 +54,7 @@ public class BestSellerHoveredProductPage extends BasePage {
 
     private String checkPriceReduction() {
         try {
-            return hoveredProduct.findElement(By.className(".left-block .price-percent-reduction")).getText().strip();
+            return hoveredProduct.findElement(By.cssSelector(".left-block .price-percent-reduction")).getText().strip();
         } catch (NoSuchElementException e) {
             return "";
         }

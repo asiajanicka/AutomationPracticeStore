@@ -44,10 +44,11 @@ public class BestSellerProductPage extends BasePage {
     }
 
     @Step("Hover on product")
-    public BestSellerHoveredProductPage hover() {
+    public BestSellerHoveredProductPage getProductOnHover() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", container);
         Actions action = new Actions(driver);
+        action.moveByOffset(1,1);
         action.moveToElement(container).perform();
         return new BestSellerHoveredProductPage(driver);
     }

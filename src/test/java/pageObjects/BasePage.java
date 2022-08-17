@@ -15,7 +15,7 @@ public abstract class BasePage {
 
     protected BasePage(WebDriver driver){
         PageFactory.initElements(driver, this);
-        baseWait = new WebDriverWait(driver, Duration.ofSeconds(6));
+        baseWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         this.driver = driver;
     }
 
@@ -23,7 +23,7 @@ public abstract class BasePage {
         boolean isDisplayed = false;
         try {
             baseWait.until(ExpectedConditions.visibilityOf(element));
-            isDisplayed = element.isDisplayed();
+            isDisplayed = true;
         } catch (Exception e) {
         }
         return isDisplayed;

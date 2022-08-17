@@ -1,6 +1,5 @@
 package tests;
 
-import drivers.DriverFactory;
 import enums.ContactUsSubject;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
@@ -15,8 +14,6 @@ import pageObjects.NavigationPipePage;
 import urls.Urls;
 import utils.ContactUsMessage;
 
-import java.time.Duration;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
@@ -28,12 +25,9 @@ public class ContactUsFormTests extends BaseTest {
 
     @BeforeEach
     public void testSetup() {
-        DriverFactory driverFactory = new DriverFactory();
-        driver = driverFactory.create(configuration);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        super.testSetup();
         String contactUsURL = configuration.getBaseUrl() + Urls.contactUs;
         driver.navigate().to(contactUsURL);
-        driver.manage().window().maximize();
 
         contactUs = new ContactUsPage(driver);
         navigationPipe = new NavigationPipePage(driver);

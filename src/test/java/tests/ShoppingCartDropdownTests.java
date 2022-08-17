@@ -26,11 +26,8 @@ public class ShoppingCartDropdownTests extends BaseTest {
 
     @BeforeEach
     public void testSetup() {
-        DriverFactory driverFactory = new DriverFactory();
-        driver = driverFactory.create(configuration);
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+        super.testSetup();
         driver.navigate().to(configuration.getBaseUrl());
-        driver.manage().window().maximize();
 
         home = new HomePage(driver);
     }
@@ -59,7 +56,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
         String productName = testData.getProductNames()[0];
 //        add product to cart
         BestSellerProductPage bestSeller = home.goToBestSellers().getProduct(productName);
-        bestSeller.hover().addToCart().closeWindow();
+        bestSeller.getProductOnHover().addToCart().closeWindow();
 
         SoftAssertions softly = new SoftAssertions();
 //        check label on cart bar
@@ -103,7 +100,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
                         "shipping cost").isEqualTo(expectedTotalCost);
 
         Allure.step(String.format("Assert if cart label displays \"1 %s\"", expectedCartProductLabel));
-        Allure.step("Assert if cart expands after hover on");
+        Allure.step("Assert if cart expands after getProductOnHover on");
         Allure.step(String.format("Assert if product in cart: " +
                 "1) is %s " +
                 "2) has quantity :1 " +
@@ -124,7 +121,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
 //        add product three times to cart
         BestSellerProductPage bestSeller = home.goToBestSellers().getProduct(productName);
         for (int i = 0; i < productQuantity; i++) {
-            home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
+            home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
         }
 
         SoftAssertions softly = new SoftAssertions();
@@ -185,13 +182,13 @@ public class ShoppingCartDropdownTests extends BaseTest {
         String product_3_name = testData.getProductNames()[2];
 //        add first product to cart
         BestSellerProductPage bestSeller_1 = home.goToBestSellers().getProduct(product_1_name);
-        bestSeller_1.hover().addToCart().closeWindow();
+        bestSeller_1.getProductOnHover().addToCart().closeWindow();
 //        add second product to cart
         BestSellerProductPage bestSeller_2 = home.goToBestSellers().getProduct(product_2_name);
-        bestSeller_2.hover().addToCart().closeWindow();
+        bestSeller_2.getProductOnHover().addToCart().closeWindow();
 //        add third product to cart
         BestSellerProductPage bestSeller_3 = home.goToBestSellers().getProduct(product_3_name);
-        bestSeller_3.hover().addToCart().closeWindow();
+        bestSeller_3.getProductOnHover().addToCart().closeWindow();
 
         SoftAssertions softly = new SoftAssertions();
 
@@ -239,7 +236,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Display part of product name in cart if name is too long")
     public void shouldSeePartOfProductNameInCartIfNameTooLong() {
         String productNameLong = testData.getProductNames()[1];
-        home.goToBestSellers().getProduct(productNameLong).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(productNameLong).getProductOnHover().addToCart().closeWindow();
         String actualProductNameInCart = home.getCart().findProductInCartByName(productNameLong).getName();
 
         assertThat(actualProductNameInCart)
@@ -265,17 +262,17 @@ public class ShoppingCartDropdownTests extends BaseTest {
         String product_1_name = testData.getProductNames()[1];
         BestSellerProductPage product_1 = home.goToBestSellers().getProduct(product_1_name);
         BigDecimal product_1_price = product_1.getPriceValue();
-        product_1.hover().addToCart().closeWindow();
+        product_1.getProductOnHover().addToCart().closeWindow();
 
 //        add second product to cart
         String product_2_name = testData.getProductNames()[2];
         BestSellerProductPage product_2 = home.goToBestSellers().getProduct(product_2_name);
         BigDecimal product_2_price = product_2.getPriceValue();
-        product_2.hover().addToCart().closeWindow();
+        product_2.getProductOnHover().addToCart().closeWindow();
 
 //        check if cart expands
-        assertThat(home.getCart().hoverOnCart().isCartContainerDisplayed()).
-                withFailMessage("Cart is not expanded when hover on after adding second product to cart")
+        assertThat(home.getCart().scrollToCart().hoverOnCart().isCartContainerDisplayed()).
+                withFailMessage("Cart is not expanded when getProductOnHover on after adding second product to cart")
                 .isTrue();
         Allure.step("Assert if cart is expanded");
 
@@ -337,7 +334,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Go to product page after click on product name in cart")
     public void shouldGoToProductPageAfterClickOnProductNameInCart() {
         String productName = testData.getProductNames()[1];
-        home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
         ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnName();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
@@ -349,7 +346,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Go to product page after click on product image in cart")
     public void shouldGoToProductPageAfterClickOnProductImgInCart() {
         String productName = testData.getProductNames()[2];
-        home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
         ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnImg();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
@@ -361,7 +358,7 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Go to product page after click on product attributes in cart")
     public void shouldGoToProductPageAfterClickOnProductAttributesInCart() {
         String productName = testData.getProductNames()[1];
-        home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
+        home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
         ProductPage productPage = home.getCart().findProductInCartByName(productName).clickOnAttributes();
         assertThat(productPage.getName())
                 .withFailMessage("Redirected to page with different product then %s", productName)
@@ -373,10 +370,9 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Check out to cart page")
     public void shouldGoToCartPageAfterCheckOut() {
         String productName = testData.getProductNames()[2];
-        home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
-        String cartTitle = home.getCart().hoverOnCart().checkOut().getCartTitle();
+        home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
+        String cartTitle = home.getCart().scrollToCart().hoverOnCart().checkOut().getCartTitle();
         String expectedCartPageTitle = appProperties.getCartPageTitle();
-
         assertThat(cartTitle.toLowerCase())
                 .withFailMessage("Not redirected to cart page with title \"%s\"",
                         expectedCartPageTitle)
@@ -388,8 +384,8 @@ public class ShoppingCartDropdownTests extends BaseTest {
     @DisplayName("Go to cart page when click on drop down cart bar")
     public void shouldGoToCartPageAfterClickOnCartBar() {
         String productName = testData.getProductNames()[2];
-        home.goToBestSellers().getProduct(productName).hover().addToCart().closeWindow();
-        String cartTitle = home.getCart().hoverOnCart().clickOnCartBar().getCartTitle();
+        home.goToBestSellers().getProduct(productName).getProductOnHover().addToCart().closeWindow();
+        String cartTitle = home.getCart().scrollToCart().hoverOnCart().clickOnCartBar().getCartTitle();
         String expectedCartPageTitle = appProperties.getCartPageTitle();
 
         assertThat(cartTitle.toLowerCase())
