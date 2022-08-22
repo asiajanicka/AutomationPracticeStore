@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pageObjects.BasePage;
 import pageObjects.cartPages.ShoppingCartDropDownPage;
+import pageObjects.topMenuPages.TopMenuPage;
 
 @Getter
 public class HomePage extends BasePage {
@@ -16,6 +17,8 @@ public class HomePage extends BasePage {
     private final SliderPage slider;
     private final BestSellersPage bestSellers;
     private final ShoppingCartDropDownPage cart;
+
+    private final TopMenuPage topMenu;
 
     @FindBy(css = "#home-page-tabs .blockbestsellers")
     @CacheLookup
@@ -38,6 +41,7 @@ public class HomePage extends BasePage {
         slider = new SliderPage(driver);
         bestSellers = new BestSellersPage(driver);
         cart = new ShoppingCartDropDownPage(driver);
+        topMenu =  new TopMenuPage(driver);
     }
 
     @Step("Go to Best Sellers")

@@ -120,12 +120,12 @@ public class ProductQuickViewTests extends BaseTest {
         Allure.step(String.format("Assert if product page contains product name '%s'", expectedName));
     }
 
-    private boolean isPageCurrentLoaded() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        Boolean complete = wait.until(
-                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
-        return complete;
-    }
+//    private boolean isPageCurrentLoaded() {
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        Boolean complete = wait.until(
+//                webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
+//        return complete;
+//    }
 
     private void checkIfSocialMediaPageOpenAfterClickOnShare(String socialMediaName){
         String expectedName = testData.getProductNames()[0];
