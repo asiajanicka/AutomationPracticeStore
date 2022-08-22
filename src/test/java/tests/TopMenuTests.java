@@ -35,7 +35,7 @@ public class TopMenuTests extends BaseTest {
                 .getCategoriesNames();
         List<String> listOfEmptyWomenCategoryNames = womenSubcategoriesNames
                 .stream()
-                .filter(cat -> cat.isEmpty())
+                .filter(String::isEmpty)
                 .collect(Collectors.toList());
 
         List<String> dressesSubcategoriesNames = home
@@ -44,7 +44,7 @@ public class TopMenuTests extends BaseTest {
                 .getCategoriesNames();
         List<String> listOfEmptyDressesCategoryNames = dressesSubcategoriesNames
                 .stream()
-                .filter(cat -> cat.isEmpty()
+                .filter(String::isEmpty
                 ).collect(Collectors.toList());
 
         SoftAssertions softy = new SoftAssertions();
@@ -57,30 +57,36 @@ public class TopMenuTests extends BaseTest {
     @Test
     @DisplayName("Go to Women category page")
     public void shouldDisplayWomenPage() {
-        String expectedCategoryName = "WOMEN";
+        String expectedCategoryName = appProperties
+                .getCategoryNameLabels()
+                .getWomen();
         assertThat(home.getTopMenu()
                 .goToWomenPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName); // dodac zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
     @Test
     @DisplayName("Go to Dresses category page")
     public void shouldDisplayDressesPage() {
-        String expectedCategoryName = "DRESSES";
+        String expectedCategoryName = appProperties
+                .getCategoryNameLabels()
+                .getDresses();
         assertThat(home.getTopMenu()
                 .goToDressesPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName); // dodać zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
     @Test
     @DisplayName("Go to T-shirts category page")
     public void shouldTShirtsWomenPage() {
-        String expectedCategoryName = "T-SHIRTS";
+        String expectedCategoryName = appProperties
+                .getCategoryNameLabels()
+                .getTShirts();
         assertThat(home.getTopMenu()
                 .goToTShirtsPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName); // dodać zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
@@ -88,7 +94,9 @@ public class TopMenuTests extends BaseTest {
     @DisplayName("Go to Blog page")
     public void shouldDisplayBlogPage() {
         String parentWindowHandle = driver.getWindowHandle();
-        home.getTopMenu().goToBlogPage();
+        home
+                .getTopMenu()
+                .goToBlogPage();
         Set<String> windowHandles = driver.getWindowHandles();
         windowHandles.remove(parentWindowHandle);
         String windowHandleOfBlogPage = windowHandles.iterator().next();
@@ -102,7 +110,7 @@ public class TopMenuTests extends BaseTest {
     @Test
     @DisplayName("Go to first level subcategory page")
     public void shouldDisplay1stLevelSubcategoryPage(){
-        String expected1stLevelSubcategoryName = "TOPS";
+        String expected1stLevelSubcategoryName = appProperties.getCategoryNameLabels().getWomen1stLevelSub();
         assertThat(home.getTopMenu()
                 .hoverOnWomenMenu()
                 .getWomenSubcategory(expected1stLevelSubcategoryName)
@@ -114,8 +122,8 @@ public class TopMenuTests extends BaseTest {
     @Test
     @DisplayName("Go to second level subcategory page")
     public void shouldDisplay2ndLevelSubcategory() {
-        String expected1stLevelSubcategoryName = "TOPS";
-        String expected2ndLevelSubcategoryName = "BLOUSES";
+        String expected1stLevelSubcategoryName = appProperties.getCategoryNameLabels().getWomen1stLevelSub();
+        String expected2ndLevelSubcategoryName =  appProperties.getCategoryNameLabels().getWomen2ndLevelSub();
         assertThat(home.getTopMenu()
                 .hoverOnWomenMenu()
                 .getWomenSubcategory(expected1stLevelSubcategoryName)

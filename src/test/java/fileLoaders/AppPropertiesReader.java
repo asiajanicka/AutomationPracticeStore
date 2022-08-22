@@ -1,6 +1,7 @@
 package fileLoaders;
 
 import lombok.Getter;
+import utils.CategoryNameLabels;
 import utils.NavPipeLabels;
 
 import java.math.BigDecimal;
@@ -26,12 +27,15 @@ public class AppPropertiesReader extends PropertiesReader {
     private String cartPageTitle;
 
     private NavPipeLabels navPipeLabel;
+    private CategoryNameLabels categoryNameLabels;
 
     public AppPropertiesReader() {
         super("app.properties");
     }
 
     void loadData() {
+
+        categoryNameLabels = new CategoryNameLabels(properties);
         numberOfProductsInBestSellers = Integer
                 .parseInt(properties.getProperty("numberOfProductsInBestSellers"));
         numberOfDiscountedProductsInBestSellers = Integer

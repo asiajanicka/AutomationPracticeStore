@@ -121,7 +121,6 @@ public class TopMenuPage extends BasePage {
         List<WebElement> elements = menuEl.findElements(By.xpath(expandedSubcategoriesLocator));
         for (WebElement el : elements) {
             MenuCategoryPage categoryPage = new MenuCategoryPage(driver, el);
-            System.out.println(categoryPage);
             subcategories.add(categoryPage);
         }
         return subcategories;

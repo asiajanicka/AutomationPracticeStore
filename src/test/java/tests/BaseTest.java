@@ -27,6 +27,7 @@ public class BaseTest {
     protected ConfigReader configuration;
     protected AppPropertiesReader appProperties;
     protected TestDataReader testData;
+
     @RegisterExtension
     protected TestStatus status = new TestStatus();
 
