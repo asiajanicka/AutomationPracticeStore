@@ -1,5 +1,6 @@
 package pageObjects.topMenuPages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -42,16 +43,19 @@ public class TopMenuPage extends BasePage {
     @CacheLookup
     private WebElement blog;
 
+    @Step("Scroll to top menu")
     public TopMenuPage scrollToMenu() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", topMenu);
         return this;
     }
 
+    @Step("Hover on WOMEN menu")
     public TopMenuPage hoverOnWomenMenu(){
         return hoverOnExpandableMenuElement(women);
     }
 
+    @Step("Hover on DRESSES Menu")
     public TopMenuPage hoverOnDressesMenu(){
         return hoverOnExpandableMenuElement(dresses);
     }
@@ -70,25 +74,30 @@ public class TopMenuPage extends BasePage {
                 .collect(Collectors.toList());
     }
 
+    @Step("Go to Women category page")
     public CategoryPage goToWomenPage() {
         women.click();
         return new CategoryPage(driver);
     }
 
+    @Step("Go to Dresses category page")
     public CategoryPage goToDressesPage() {
         dresses.click();
         return new CategoryPage(driver);
     }
 
+    @Step("Go to T-shirts category page")
     public CategoryPage goToTShirtsPage() {
         tShirts.click();
         return new CategoryPage(driver);
     }
 
+    @Step("Go to BLOG page")
     public void goToBlogPage() {
         blog.click();
     }
 
+    @Step("Find subcategory '{0}' in Women menu")
     public MenuCategoryPage getWomenSubcategory(String name) {
         return getWomenSubcategories()
                 .stream()
@@ -97,15 +106,17 @@ public class TopMenuPage extends BasePage {
                 .orElseThrow(() -> new IllegalArgumentException("There is no such a category"));
     }
 
+    @Step("Get Women subcategories")
     public List<MenuCategoryPage> getWomenSubcategories() {
         return getSubcategories(women);
     }
 
+    @Step("Get Dresses subcategories")
     public List<MenuCategoryPage> getDressesSubcategories() {
         return getSubcategories(dresses);
     }
 
-    public List<MenuCategoryPage> getSubcategories(WebElement menuEl) {
+    private List<MenuCategoryPage> getSubcategories(WebElement menuEl) {
         List<MenuCategoryPage> subcategories = new ArrayList<>();
         List<WebElement> elements = menuEl.findElements(By.xpath(expandedSubcategoriesLocator));
         for (WebElement el : elements) {

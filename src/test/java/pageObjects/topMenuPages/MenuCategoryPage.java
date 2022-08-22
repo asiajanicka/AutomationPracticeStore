@@ -1,5 +1,6 @@
 package pageObjects.topMenuPages;
 
+import io.qameta.allure.Step;
 import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +32,7 @@ public class MenuCategoryPage extends BasePage {
         return category.getText().strip();
     }
 
+    @Step("Find subcategory '{0}'")
     public MenuCategoryPage getSubcategory(String name){
         return subCategories
                 .stream()
@@ -39,6 +41,7 @@ public class MenuCategoryPage extends BasePage {
                 .orElseThrow(()->new IllegalArgumentException("There is no such category"));
     }
 
+    @Step("Go to page of subcategory")
     public CategoryPage goToPage(){
         category.click();
         return new CategoryPage(driver);

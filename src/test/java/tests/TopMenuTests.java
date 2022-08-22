@@ -1,15 +1,20 @@
 package tests;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Feature;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pageObjects.homePages.HomePage;
+
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Feature("Top Menu")
 public class TopMenuTests extends BaseTest {
 
     private HomePage home;
@@ -46,30 +51,37 @@ public class TopMenuTests extends BaseTest {
         softy.assertThat(listOfEmptyWomenCategoryNames).isEmpty();
         softy.assertThat(listOfEmptyDressesCategoryNames).isEmpty();
         softy.assertAll();
+        Allure.step("Assert is there are no empty subcategories in Women and in Dresses");
     }
 
     @Test
     @DisplayName("Go to Women category page")
     public void shouldDisplayWomenPage() {
+        String expectedCategoryName = "WOMEN";
         assertThat(home.getTopMenu()
                 .goToWomenPage()
-                .getCategoryName()).isEqualTo("WOMEN"); // dodac zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName); // dodac zmienna
+        Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
     @Test
     @DisplayName("Go to Dresses category page")
     public void shouldDisplayDressesPage() {
+        String expectedCategoryName = "DRESSES";
         assertThat(home.getTopMenu()
                 .goToDressesPage()
-                .getCategoryName()).isEqualTo("DRESSES"); // dodać zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName); // dodać zmienna
+        Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
     @Test
     @DisplayName("Go to T-shirts category page")
     public void shouldTShirtsWomenPage() {
+        String expectedCategoryName = "T-SHIRTS";
         assertThat(home.getTopMenu()
                 .goToTShirtsPage()
-                .getCategoryName()).isEqualTo("T-SHIRTS"); // dodać zmienna
+                .getCategoryName()).isEqualTo(expectedCategoryName); // dodać zmienna
+        Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
     @Test
@@ -83,28 +95,33 @@ public class TopMenuTests extends BaseTest {
         driver.switchTo().window(windowHandleOfBlogPage);
         isPageCurrentLoaded();
         String titleOfBlogPage = driver.getTitle();
-        assertThat(titleOfBlogPage).contains("Blog"); // dodac zmienna
+        assertThat(titleOfBlogPage).contains("Blog");
+        Allure.step("Assert if title of newly opened pages contains word 'Blog");
     }
 
     @Test
     @DisplayName("Go to first level subcategory page")
-    public void shouldDisplay1stLevelSubcategoryPage() throws InterruptedException {
+    public void shouldDisplay1stLevelSubcategoryPage(){
+        String expected1stLevelSubcategoryName = "TOPS";
         assertThat(home.getTopMenu()
                 .hoverOnWomenMenu()
-                .getWomenSubcategory("TOPS")
+                .getWomenSubcategory(expected1stLevelSubcategoryName)
                 .goToPage()
-                .getCategoryName()).isEqualTo("TOPS");
-
+                .getCategoryName()).isEqualTo(expected1stLevelSubcategoryName);
+        Allure.step(String.format("Assert if page category is '%s'", expected1stLevelSubcategoryName));
     }
 
     @Test
     @DisplayName("Go to second level subcategory page")
     public void shouldDisplay2ndLevelSubcategory() {
+        String expected1stLevelSubcategoryName = "TOPS";
+        String expected2ndLevelSubcategoryName = "BLOUSES";
         assertThat(home.getTopMenu()
                 .hoverOnWomenMenu()
-                .getWomenSubcategory("TOPS")
-                .getSubcategory("Blouses")
+                .getWomenSubcategory(expected1stLevelSubcategoryName)
+                .getSubcategory(expected2ndLevelSubcategoryName)
                 .goToPage()
-                .getCategoryName()).isEqualTo("BLOUSES");
+                .getCategoryName()).isEqualTo(expected2ndLevelSubcategoryName);
+        Allure.step(String.format("Assert if page category is '%s'", expected2ndLevelSubcategoryName));
     }
 }
