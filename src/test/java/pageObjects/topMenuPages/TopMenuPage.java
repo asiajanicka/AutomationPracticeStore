@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import pageObjects.BasePage;
+import pageObjects.base.BasePage;
 import pageObjects.categoryPages.CategoryPage;
 
 import java.util.ArrayList;

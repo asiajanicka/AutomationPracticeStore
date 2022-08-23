@@ -3,12 +3,13 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import pageObjects.base.BasePage;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NavigationPipePage extends BasePage{
+public class NavigationPipePage extends BasePage {
 
     public NavigationPipePage(WebDriver driver) {
         super(driver);

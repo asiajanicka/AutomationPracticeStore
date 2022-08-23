@@ -1,30 +1,31 @@
-package pageObjects.homePages;
+package pageObjects.base;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
-import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import pageObjects.base.BasePage;
-import pageObjects.ProductPage;
+import pageObjects.homePages.BestSellerProductPage;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 
-public class BestSellerProductPage extends BasePage {
+public class ProductBasePage extends BasePage {
+    protected WebElement container;
+    protected WebElement img;
+    protected WebElement name;
+    @Getter
+    protected String price;
+    @Getter
+    protected String oldPrice;
+    @Getter
+    protected String pricePercentReduction;
 
-    WebElement container;
-    WebElement img;
-    WebElement name;
-    @Getter
-    String price;
-    @Getter
-    String oldPrice;
-    @Getter
-    String pricePercentReduction;
-
-    public BestSellerProductPage(WebDriver driver,
+    public ProductBasePage(WebDriver driver,
                            WebElement container,
                            WebElement img,
                            WebElement name,
@@ -33,7 +34,7 @@ public class BestSellerProductPage extends BasePage {
                            String pricePercentReduction
     ) {
         super(driver);
-        this.driver = driver;
+
         this.container = container;
         this.img = img;
         this.name = name;
@@ -42,15 +43,41 @@ public class BestSellerProductPage extends BasePage {
         this.pricePercentReduction = pricePercentReduction;
     }
 
-    @Step("Hover on product")
-    public BestSellerHoveredProductPage getProductOnHover() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", container);
-        Actions action = new Actions(driver);
-        action.moveByOffset(1,1);
-        action.moveToElement(container).perform();
-        return new BestSellerHoveredProductPage(driver);
+    public ProductBasePage (WebDriver driver, WebElement product){
+        super(driver);
+        this.container = product.findElement(By.className("product-container"));
+        this.img = product.findElement(By.className("product_img_link"));
+        this.name = product.findElement(By.className("product-name"));
+        this.price = product.findElement(By.cssSelector(".right-block .price")).getText();
+        this.oldPrice = checkOldPrice(product);
+        this.pricePercentReduction = checkPriceReduction(product);
     }
+
+    private static String checkOldPrice(WebElement product) {
+        try {
+            return product.findElement(By.cssSelector(".right-block .old-price")).getText();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
+    }
+
+    private static String checkPriceReduction(WebElement product) {
+        try {
+            return product.findElement(By.cssSelector(".right-block .price-percent-reduction")).getText();
+        } catch (NoSuchElementException e) {
+            return "";
+        }
+    }
+
+//    @Step("Hover on product")
+//    public BestSellerHoveredProductPage getProductOnHover() {
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        js.executeScript("arguments[0].scrollIntoView();", container);
+//        Actions action = new Actions(driver);
+//        action.moveByOffset(1,1);
+//        action.moveToElement(container).perform();
+//        return new BestSellerHoveredProductPage(driver);
+//    }
 
     public String getImgStr() {
         return img.getAttribute("src");
@@ -61,13 +88,13 @@ public class BestSellerProductPage extends BasePage {
     }
 
     @Step("Click on image")
-    public ProductPage clickOnImg() {
+    public pageObjects.ProductPage clickOnImg() {
         // trying to click on img directly will click on "Quick view" button that is in the middle of img
         // for this reason click on img must be removed by offset
         Actions action = new Actions(driver);
         int width = img.getSize().getWidth();
         action.moveToElement(img).moveByOffset((width/2)-2,10).click().perform();
-        return new ProductPage(driver);
+        return new pageObjects.ProductPage(driver);
     }
 
     public String getName() {
@@ -79,9 +106,9 @@ public class BestSellerProductPage extends BasePage {
     }
 
     @Step("Click on name")
-    public ProductPage clickOnName() {
+    public pageObjects.ProductPage clickOnName() {
         name.click();
-        return new ProductPage(driver);
+        return new pageObjects.ProductPage(driver);
     }
 
     public BigDecimal getPriceValue() {
@@ -108,7 +135,7 @@ public class BestSellerProductPage extends BasePage {
 
     @Override
     public String toString() {
-        return "ProductInContentTab{" +
+        return "{" +
                 "name=" + name.getText() +
                 ", price=" + price +
                 ", old price=" + oldPrice +

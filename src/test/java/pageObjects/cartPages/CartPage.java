@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import pageObjects.BasePage;
+import pageObjects.base.BasePage;
 
 public class CartPage extends BasePage {
     public CartPage(WebDriver driver) {

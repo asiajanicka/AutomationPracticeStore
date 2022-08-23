@@ -5,8 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import pageObjects.base.BasePage;
 
-public class ProductPage extends BasePage{
+public class ProductPage extends BasePage {
     public ProductPage(WebDriver driver) {
         super(driver);
         baseWait.until(ExpectedConditions.visibilityOf(name));

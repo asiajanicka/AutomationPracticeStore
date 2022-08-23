@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import pageObjects.BasePage;
+import pageObjects.base.BasePage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

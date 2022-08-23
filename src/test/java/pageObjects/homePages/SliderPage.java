@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
-import pageObjects.BasePage;
+import pageObjects.base.BasePage;
 
 import java.util.List;
 

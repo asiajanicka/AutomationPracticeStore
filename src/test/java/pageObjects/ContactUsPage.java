@@ -8,9 +8,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
+import pageObjects.base.BasePage;
 import utils.ContactUsMessage;
 
-public class ContactUsPage extends BasePage{
+public class ContactUsPage extends BasePage {
 
     public ContactUsPage(WebDriver driver) {
         super(driver);

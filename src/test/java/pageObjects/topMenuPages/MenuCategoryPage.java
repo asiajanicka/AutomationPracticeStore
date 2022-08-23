@@ -5,7 +5,7 @@ import lombok.Getter;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import pageObjects.BasePage;
+import pageObjects.base.BasePage;
 import pageObjects.categoryPages.CategoryPage;
 
 import java.util.ArrayList;

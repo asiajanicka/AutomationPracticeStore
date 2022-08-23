@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.base;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
