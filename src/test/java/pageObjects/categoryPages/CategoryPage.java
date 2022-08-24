@@ -21,6 +21,9 @@ public class CategoryPage extends BasePage {
     @FindBy(css = ".page-heading>.cat-name")
     WebElement categoryName;
 
+    @FindBy(css = ".heading-counter")
+    WebElement productCounter;
+
     @FindBy(css = ".ajax_block_product")
     private List<WebElement> products;
 
@@ -33,5 +36,9 @@ public class CategoryPage extends BasePage {
         for(WebElement product: products)
             productsParsed.add(new CategoryProductPage(driver, product));
         return productsParsed;
+    }
+
+    public int getNumberOfProductsFromProductCounter(){
+        return Integer.parseInt(productCounter.getText().replaceAll("\\D",""));
     }
 }

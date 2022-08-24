@@ -2,16 +2,11 @@ package pageObjects.base;
 
 import io.qameta.allure.Step;
 import lombok.Getter;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import pageObjects.base.BasePage;
 import pageObjects.homePages.BestSellerProductPage;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 
 public class ProductBasePage extends BasePage {
@@ -34,7 +29,6 @@ public class ProductBasePage extends BasePage {
                            String pricePercentReduction
     ) {
         super(driver);
-
         this.container = container;
         this.img = img;
         this.name = name;
@@ -69,15 +63,15 @@ public class ProductBasePage extends BasePage {
         }
     }
 
-//    @Step("Hover on product")
-//    public BestSellerHoveredProductPage getProductOnHover() {
-//        JavascriptExecutor js = (JavascriptExecutor) driver;
-//        js.executeScript("arguments[0].scrollIntoView();", container);
-//        Actions action = new Actions(driver);
-//        action.moveByOffset(1,1);
-//        action.moveToElement(container).perform();
-//        return new BestSellerHoveredProductPage(driver);
-//    }
+    @Step("Hover on product")
+    public ProductHoveredBasePage getProductOnHover() {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", container);
+        Actions action = new Actions(driver);
+        action.moveByOffset(1,1);
+        action.moveToElement(container).perform();
+        return new ProductHoveredBasePage(driver);
+    }
 
     public String getImgStr() {
         return img.getAttribute("src");

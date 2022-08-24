@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import pageObjects.categoryPages.CategoryPage;
 import pageObjects.homePages.HomePage;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class CategoryPageTests extends BaseTest{
 
     private HomePage home;
@@ -19,6 +21,9 @@ public class CategoryPageTests extends BaseTest{
     @Test
     public void test(){
 
-        System.out.println(home.getTopMenu().goToWomenPage().getProducts());
+        CategoryPage categoryPage = home.getTopMenu().goToWomenPage();
+        int size = categoryPage.getProducts().size();
+        int numberOfProductsFromProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        assertThat(size).isEqualTo(numberOfProductsFromProductCounter);
     }
 }
