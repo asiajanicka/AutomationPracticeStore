@@ -20,7 +20,6 @@ public class CategoryPage extends BasePage {
 
     @FindBy(css = ".page-heading>.cat-name")
     WebElement categoryName;
-
     @FindBy(css = ".heading-counter")
     WebElement productCounter;
 
