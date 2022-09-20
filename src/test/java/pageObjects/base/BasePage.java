@@ -1,5 +1,6 @@
 package pageObjects.base;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
@@ -33,10 +34,15 @@ public abstract class BasePage {
         boolean isRemoved = false;
         try {
             baseWait.until(ExpectedConditions.invisibilityOf(element));
-            isRemoved = !element.isDisplayed();
+            isRemoved = true;
         } catch (Exception e) {
 
         }
         return isRemoved;
+    }
+
+    protected void scrollToElement(WebElement el){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView();", el);
     }
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import pageObjects.base.ProductBasePage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryProductPage extends ProductBasePage {
@@ -17,19 +18,7 @@ public class CategoryProductPage extends ProductBasePage {
     @Getter
     private String availability;
 
-//    public CategoryProductPage(WebDriver driver,
-//                               WebElement container,
-//                               WebElement img,
-//                               WebElement name,
-//                               String price,
-//                               String oldPrice,
-//                               String pricePercentReduction,
-//                               List<WebElement> colors,
-//                               String availability) {
-//        super(driver, container, img, name, price, oldPrice, pricePercentReduction);
-//        this.colors = colors;
-//        this.availability = availability;
-//    }
+
 
     public CategoryProductPage(WebDriver driver, WebElement product){
         super(driver, product);
@@ -45,5 +34,17 @@ public class CategoryProductPage extends ProductBasePage {
         action.moveByOffset(1,1);
         action.moveToElement(container).perform();
         return new CategoryProductHoveredPage(driver);
+    }
+
+    public List<String> getColors(){
+        List<String> colorsStr = new ArrayList<>();
+        for(WebElement colorEl: colors){
+
+            int start = colorEl.getAttribute("href").indexOf("color-")+6;
+            int end = colorEl.getAttribute("href").length();
+            String colorTemp = colorEl.getAttribute("href").substring(start, end);
+            colorsStr.add(colorTemp);
+        }
+        return colorsStr;
     }
 }

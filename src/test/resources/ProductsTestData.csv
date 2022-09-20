@@ -1,0 +1,27 @@
+id,name,category,1st_level_subcategory,2nd_level_subcategory,reference,condition,color,availability,sizes,price,old_price,price_reduction,compositions,styles,properties,colorHexa
+1,Faded Short Sleeve T-shirts,Women,Tops,T-shirts,demo_1,New,Blue,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#5D9CEC
+1,Faded Short Sleeve T-shirts,Women,Tops,T-shirts,demo_1,New,Orange,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#F39C11
+2,Blouse,Women,Tops,Blouses,demo_2,New,White,IN_STOCK,"S,M,L",27,,,Cotton,Casual,Short Sleeve,#ffffff
+2,Blouse,Women,Tops,Blouses,demo_2,New,Black,IN_STOCK,"S,M,L",27,,,Cotton,Casual,Short Sleeve,#434A54
+3,Printed Dress,Women,Dresses,Casual dresses,demo_3,New,Orange,IN_STOCK,"S,M,L",26,,,Cotton,Girly,Colorful Dress,#F39C11
+4,Printed Dress,Women,Dresses,Evening dresses,demo_4,New,Beige,IN_STOCK,"S,M,L",50.99,,,Viscose,Dressy,Short Dress,#f5f5dc
+4,Printed Dress,Women,Dresses,Evening dresses,demo_4,New,Pink,OUT_OF_STOCK,"S,M,L",50.99,,,Viscose,Dressy,Short Dress,#FCCACD
+5,Printed Summer Dress,Women,Dresses,Summer dresses,demo_5,New,Black,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#434A54
+5,Printed Summer Dress,Women,Dresses,Summer dresses,demo_5,New,Orange,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#F39C11
+5,Printed Summer Dress,Women,Dresses,Summer dresses,demo_5,New,Blue,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#5D9CEC
+5,Printed Summer Dress,Women,Dresses,Summer dresses,demo_5,New,Yellow,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#F1C40F
+6,Printed Summer Dress,Women,Dresses,Summer dresses,demo_6,New,White,OUT_OF_STOCK,"S,M,L",30.5,,,Polyester,Girly,Short Dress,#ffffff
+6,Printed Summer Dress,Women,Dresses,Summer dresses,demo_6,New,Yellow,IN_STOCK,"S,M,L",30.5,,,Polyester,Girly,Short Dress,#F1C40F
+7,Printed Chiffon Dress,Women,Dresses,Summer dresses,demo_7,New,Green,IN_STOCK,"S,M,L",16.4,20.5,-20.00%,Polyester,Girly,Midi Dress,#A0D468
+7,Printed Chiffon Dress,Women,Dresses,Summer dresses,demo_7,New,Yellow,IN_STOCK,"S,M,L",16.4,20.5,-20.00%,Polyester,Girly,Midi Dress,#F1C40F
+3,Printed Dress,Dresses,Casual Dresses,,demo_3,New,Orange,IN_STOCK,"S,M,L",26,,,Cotton,Girly,Colorful Dress,#F39C11
+4,Printed Dress,Dresses,Evening Dresses,,demo_4,New,Beige,IN_STOCK,"S,M,L",50.99,,,Viscose,Dressy,Short Dress,#f5f5dc
+4,Printed Dress,Dresses,Evening Dresses,,demo_4,New,Pink,OUT_OF_STOCK,"S,M,L",50.99,,,Viscose,Dressy,Short Dress,#FCCACD
+5,Printed Summer Dress,Dresses,Summer Dresses,,demo_5,New,Black,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#434A54
+5,Printed Summer Dress,Dresses,Summer Dresses,,demo_5,New,Orange,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#F39C11
+5,Printed Summer Dress,Dresses,Summer Dresses,,demo_5,New,Blue,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#5D9CEC
+5,Printed Summer Dress,Dresses,Summer Dresses,,demo_5,New,Yellow,IN_STOCK,"S,M,L",28.98,30.51,-5.00%,Viscose,Casual,Maxi Dress,#F1C40F
+6,Printed Summer Dress,Dresses,Summer Dresses,,demo_6,New,White,OUT_OF_STOCK,"S,M,L",30.5,,,Polyester,Girly,Short Dress,#ffffff
+6,Printed Summer Dress,Dresses,Summer Dresses,,demo_6,New,Yellow,IN_STOCK,"S,M,L",30.5,,,Polyester,Girly,Short Dress,#F1C40F
+7,Printed Chiffon Dress,Dresses,Summer Dresses,,demo_7,New,Green,IN_STOCK,"S,M,L",16.4,20.5,-20.00%,Polyester,Girly,Midi Dress,#A0D468
+7,Printed Chiffon Dress,Dresses,Summer Dresses,,demo_7,New,Yellow,IN_STOCK,"S,M,L",16.4,20.5,-20.00%,Polyester,Girly,Midi Dress,#F1C40F

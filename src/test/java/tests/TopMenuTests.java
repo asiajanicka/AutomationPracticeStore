@@ -62,7 +62,7 @@ public class TopMenuTests extends BaseTest {
                 .getWomen();
         assertThat(home.getTopMenu()
                 .goToWomenPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName);
+                .getPageHeader()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
@@ -74,7 +74,7 @@ public class TopMenuTests extends BaseTest {
                 .getDresses();
         assertThat(home.getTopMenu()
                 .goToDressesPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName);
+                .getPageHeader()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
@@ -86,7 +86,7 @@ public class TopMenuTests extends BaseTest {
                 .getTShirts();
         assertThat(home.getTopMenu()
                 .goToTShirtsPage()
-                .getCategoryName()).isEqualTo(expectedCategoryName);
+                .getPageHeader()).isEqualTo(expectedCategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expectedCategoryName));
     }
 
@@ -115,7 +115,7 @@ public class TopMenuTests extends BaseTest {
                 .hoverOnWomenMenu()
                 .getWomenSubcategory(expected1stLevelSubcategoryName)
                 .goToPage()
-                .getCategoryName()).isEqualTo(expected1stLevelSubcategoryName);
+                .getPageHeader()).isEqualTo(expected1stLevelSubcategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expected1stLevelSubcategoryName));
     }
 
@@ -129,7 +129,7 @@ public class TopMenuTests extends BaseTest {
                 .getWomenSubcategory(expected1stLevelSubcategoryName)
                 .getSubcategory(expected2ndLevelSubcategoryName)
                 .goToPage()
-                .getCategoryName()).isEqualTo(expected2ndLevelSubcategoryName);
+                .getPageHeader()).isEqualTo(expected2ndLevelSubcategoryName);
         Allure.step(String.format("Assert if page category is '%s'", expected2ndLevelSubcategoryName));
     }
 }

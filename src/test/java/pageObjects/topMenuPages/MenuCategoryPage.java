@@ -46,4 +46,11 @@ public class MenuCategoryPage extends BasePage {
         category.click();
         return new CategoryPage(driver);
     }
+
+    @Override
+    public String toString() {
+        return "MenuCategoryPage{" +
+                "category=" + getName() +
+                '}';
+    }
 }

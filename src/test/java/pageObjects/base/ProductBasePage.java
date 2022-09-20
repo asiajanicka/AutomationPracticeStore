@@ -9,42 +9,53 @@ import pageObjects.homePages.BestSellerProductPage;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-public class ProductBasePage extends BasePage {
+public class ProductBasePage extends BasePage{
     protected WebElement container;
     protected WebElement img;
-    protected WebElement name;
+    protected WebElement nameEl;
     @Getter
     protected String price;
+    @Getter
+    protected int id;
     @Getter
     protected String oldPrice;
     @Getter
     protected String pricePercentReduction;
 
-    public ProductBasePage(WebDriver driver,
-                           WebElement container,
-                           WebElement img,
-                           WebElement name,
-                           String price,
-                           String oldPrice,
-                           String pricePercentReduction
-    ) {
-        super(driver);
-        this.container = container;
-        this.img = img;
-        this.name = name;
-        this.price = price;
-        this.oldPrice = oldPrice;
-        this.pricePercentReduction = pricePercentReduction;
-    }
+//    public ProductBasePage(WebDriver driver,
+//                           WebElement container,
+//                           WebElement img,
+//                           WebElement name,
+//                           String price,
+//                           String oldPrice,
+//                           String pricePercentReduction
+//    ) {
+//        super(driver);
+//        this.container = container;
+//        this.img = img;
+//        this.nameEl = name;
+//        this.price = price;
+//        this.oldPrice = oldPrice;
+//        this.pricePercentReduction = pricePercentReduction;
+//    }
 
     public ProductBasePage (WebDriver driver, WebElement product){
         super(driver);
         this.container = product.findElement(By.className("product-container"));
         this.img = product.findElement(By.className("product_img_link"));
-        this.name = product.findElement(By.className("product-name"));
+        this.nameEl = product.findElement(By.className("product-name"));
         this.price = product.findElement(By.cssSelector(".right-block .price")).getText();
         this.oldPrice = checkOldPrice(product);
         this.pricePercentReduction = checkPriceReduction(product);
+
+        int start = img.getAttribute("href").lastIndexOf("id_product=") + 11;
+        int end = img.getAttribute("href").indexOf("&");
+        this.id = Integer.parseInt(img.getAttribute("href").substring(start,end));
+
+    }
+
+    public String getPriceStr(){
+        return price;
     }
 
     private static String checkOldPrice(WebElement product) {
@@ -73,9 +84,9 @@ public class ProductBasePage extends BasePage {
         return new ProductHoveredBasePage(driver);
     }
 
-    public String getImgStr() {
-        return img.getAttribute("src");
-    }
+//    public String getImgStr() {
+//        return img.getAttribute("src");
+//    }
 
     public boolean hasImgHyperLink(){
         return hasHyperLink(img);
@@ -92,21 +103,21 @@ public class ProductBasePage extends BasePage {
     }
 
     public String getName() {
-        return name.getText().strip();
+        return nameEl.getText().strip();
     }
 
     public boolean hasNameHyperLink(){
-        return hasHyperLink(name);
+        return hasHyperLink(nameEl);
     }
 
     @Step("Click on name")
     public pageObjects.ProductPage clickOnName() {
-        name.click();
+        nameEl.click();
         return new pageObjects.ProductPage(driver);
     }
 
     public BigDecimal getPriceValue() {
-        String price = getPrice().replaceAll("[^\\d.,]", "");
+        String price = getPriceStr().replaceAll("[^\\d.,]", "");
         return new BigDecimal(price);
     }
 
@@ -130,7 +141,7 @@ public class ProductBasePage extends BasePage {
     @Override
     public String toString() {
         return "{" +
-                "name=" + name.getText() +
+                "name=" + nameEl.getText() +
                 ", price=" + price +
                 ", old price=" + oldPrice +
                 '}';
@@ -141,6 +152,6 @@ public class ProductBasePage extends BasePage {
         if (this == o) return true;
         if (!(o instanceof BestSellerProductPage)) return false;
         BestSellerProductPage that = (BestSellerProductPage) o;
-        return Objects.equals(getName(), that.getName()) && Objects.equals(getPrice(), that.getPrice());
+        return Objects.equals(getName(), that.getName()) && Objects.equals(getPriceStr(), that.getPrice());
     }
 }
