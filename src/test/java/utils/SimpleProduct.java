@@ -42,7 +42,7 @@ public class SimpleProduct {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", colorHex='" + color + '\'' +
+                ", color='" + color + '\'' +
                 '}';
     }
 }

@@ -104,13 +104,24 @@ public class CategoryPage extends BasePage {
      @Step("Disable filter with value: {0}")
      public CategoryPage disableFilterByValue(String value){
         getEnabledFilters().get(value).click();
+         try {
+             WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
+             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(products.get(0))));
+         } catch (TimeoutException e){
+         }
+
          return this;
      }
     @Step("Sort products by: {0}")
      public CategoryPage sortProductsBy(SortProductsOptions value){
         Select select = new Select(sortProductDpd);
-        select.selectByValue(value.getValue());
+        select.selectByValue(value.toString());
         return this;
+    }
+
+    public String getSelectedSortByOption(){
+        Select select = new Select(sortProductDpd);
+        return select.getFirstSelectedOption().getAttribute("value");
     }
 
     public List<CategoryProductPage> getProducts() {
@@ -237,6 +248,7 @@ public class CategoryPage extends BasePage {
             }
         }
         try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(sizeFilterItems.get(0))));
         } catch (TimeoutException e){
         }
@@ -271,6 +283,7 @@ public class CategoryPage extends BasePage {
             }
         }
         try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(colorFilterItems.get(0))));
         } catch (TimeoutException e){
         }
@@ -301,13 +314,11 @@ public class CategoryPage extends BasePage {
                 break;
             }
         }
-            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
-            baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(products.get(0))));
-
-//        try {
-//            baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(propertiesFilterItems.get(0))));
-//        } catch (TimeoutException e){
-//        }
+        try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(4));
+            baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(propertiesFilterItems.get(0))));
+        } catch (TimeoutException e){
+        }
         return this;
     }
     // COMPOSITIONS FILTER
@@ -336,6 +347,7 @@ public class CategoryPage extends BasePage {
             }
         }
         try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(compositionsFilterItems.get(0))));
         } catch (TimeoutException e){
         }
@@ -368,10 +380,10 @@ public class CategoryPage extends BasePage {
             }
         }
         try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(stylesFilterItems.get(0))));
         } catch (TimeoutException e){
         }
-
         return this;
     }
 
@@ -471,6 +483,7 @@ public class CategoryPage extends BasePage {
             }
         }
         try {
+            WebDriverWait baseWait = new WebDriverWait(driver, Duration.ofSeconds(3));
             baseWait.until(ExpectedConditions.refreshed(ExpectedConditions.stalenessOf(conditionFilterItems.get(0))));
         } catch (TimeoutException e){
         }

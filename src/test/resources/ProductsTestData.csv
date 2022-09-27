@@ -1,6 +1,8 @@
 id,name,category,1st_level_subcategory,2nd_level_subcategory,reference,condition,color,availability,sizes,price,old_price,price_reduction,compositions,styles,properties,colorHexa
 1,Faded Short Sleeve T-shirts,Women,Tops,T-shirts,demo_1,New,Blue,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#5D9CEC
 1,Faded Short Sleeve T-shirts,Women,Tops,T-shirts,demo_1,New,Orange,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#F39C11
+1,Faded Short Sleeve T-shirts,T-shirts,,,demo_1,New,Blue,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#5D9CEC
+1,Faded Short Sleeve T-shirts,T-shirts,,,demo_1,New,Orange,IN_STOCK,"S,M,L",16.51,,,Cotton,Casual,Short Sleeve,#5D9CEC
 2,Blouse,Women,Tops,Blouses,demo_2,New,White,IN_STOCK,"S,M,L",27,,,Cotton,Casual,Short Sleeve,#ffffff
 2,Blouse,Women,Tops,Blouses,demo_2,New,Black,IN_STOCK,"S,M,L",27,,,Cotton,Casual,Short Sleeve,#434A54
 3,Printed Dress,Women,Dresses,Casual dresses,demo_3,New,Orange,IN_STOCK,"S,M,L",26,,,Cotton,Girly,Colorful Dress,#F39C11

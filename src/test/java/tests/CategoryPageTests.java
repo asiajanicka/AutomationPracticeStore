@@ -1,7 +1,7 @@
 package tests;
 
-import enums.SortProductsOptions;
-import enums.Stock;
+import enums.*;
+import enums.Properties;
 import fileLoaders.ProductTestDataFromCSVReader;
 import io.qameta.allure.Allure;
 import io.qameta.allure.Feature;
@@ -50,7 +50,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP1 Display all required info for category page (Women)")
     public void CP1_displayWomenCategoryInfo(){
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Product> testDataProductsFiltered = testDataProducts
                 .getProducts()
                 .stream()
@@ -116,8 +116,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP2 Display all required info for 1st level subcategory page (Women/Tops)")
     public void CP2_displayWomen1LevelSubcategoryInfo(){
-        String category = "Women";
-        String subcategory = "Tops";
+        String category = Categories.WOMEN.toString();
+        String subcategory = Categories.TOPS.toString();
         List<Product> testDataProductsFiltered = testDataProducts
                 .getProducts()
                 .stream()
@@ -185,9 +185,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP3 Display all required info for 2 level subcategory page (Women/Tops/T-shirts)")
     public void CP3_displayWomen2ndLevelSubcategoryInfo(){
-        String category = "Women";
-        String subcategory1 = "Tops";
-        String subcategory2 = "T-shirts";
+        String category = Categories.WOMEN.toString();
+        String subcategory1 = Categories.TOPS.toString();
+        String subcategory2 = Categories.T_SHIRTS.toString();
         List<Product> testDataProductsFiltered = testDataProducts
                 .getProducts()
                 .stream()
@@ -252,7 +252,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP4 Display filters for products (Women)")
     public void CP4_displayFiltersForWomenProducts() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Product> testDataProductsFiltered_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -278,7 +278,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP5 Display filters for products (Dresses)")
     public void CP5_displayFiltersForDressesProducts() {
-        String category = "Dresses";
+        String category = Categories.DRESSES.toString();
         List<Product> testDataProductsFiltered_Dresses = testDataProducts
                 .getProducts()
                 .stream()
@@ -304,7 +304,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP6 Display filters for products (T-shirts)")
     public void CP6_displayFiltersForTShirtsProducts() {
-        String category = "T-shirts";
+        String category = Categories.T_SHIRTS.toString();
         List<Product> testDataProductsFiltered_Tshirts = testDataProducts
                 .getProducts()
                 .stream()
@@ -330,8 +330,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP7 Display filters for products in 1st level subcategory (Women/Tops)")
     public void CP7_displayFiltersFor1stLevelSubcategory() {
-        String category = "Women";
-        String subcategory = "Tops";
+        String category = Categories.WOMEN.toString();
+        String subcategory = Categories.TOPS.toString();
         List<Product> testDataProductsFiltered_Subcategory = testDataProducts
                 .getProducts()
                 .stream()
@@ -360,9 +360,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP8 Display filters for products in 2nd level subcategory (Women/Tops/Blouses)")
     public void CP8_displayFiltersFor2ndLevelSubcategory() {
-        String category = "Women";
-        String subcategory_1st = "Tops";
-        String subcategory_2nd = "Blouses";
+        String category = Categories.WOMEN.toString();
+        String subcategory_1st = Categories.TOPS.toString();
+        String subcategory_2nd = Categories.BLOUSES.toString();
         List<Product> testDataProductsFiltered_Subcategory = testDataProducts
                 .getProducts()
                 .stream()
@@ -393,7 +393,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP9 Sort products by price: lowest first")
     public void CP_9sortProductsByPriceWithLowestFirst() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -428,7 +428,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP10 Sort products by price: highest first")
     public void CP10_sortProductsByPriceWithHighestFirst() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -463,7 +463,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP11 Sort products by product name: A to Z")
     public void CP11_sortProductsByName() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -498,7 +498,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP12 Sort products by product name: Z to A")
     public void CP12_sortProductsByNameDesc() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -532,7 +532,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP13 Sort products by in stock availability")
     public void CP13_sortProductsThatAreInStock() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Product> testDataProductsFiltered_InStock = testDataProducts
                 .getProducts()
                 .stream()
@@ -578,7 +578,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP14 Sort products by reference: lowest first")
     public void CP14_sortProductsByReferenceWithLowestFirst(){
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -615,7 +615,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP15 Sort products by reference: highest first")
     public void CP15_sortProductsByReferenceWithHighestFirst(){
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                         .getProducts()
                         .stream()
@@ -652,8 +652,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP16 Filter products by single category")
     public void CP16_filterProductsBySingleCategoryInWomen(){
-        String category = "Women";
-        String subcategory = "Tops";
+        String category = Categories.WOMEN.toString();
+        String subcategory = Categories.TOPS.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -730,8 +730,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP17 Filter products by single category and sort by product name: A to Z")
     public void CP17_filterProductsByCategoryAndSortByProductNameInWomen(){
-        String category = "Women";
-        String subcategory = "Tops";
+        String category = Categories.WOMEN.toString();
+        String subcategory = Categories.TOPS.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -811,9 +811,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP18 Filter products by two categories")
     public void CP18_filterProductsByTwoCategoriesInDresses() {
-        String category = "Dresses";
-        String subcategory_1 = "Casual Dresses";
-        String subcategory_2 = "Evening Dresses";
+        String category = Categories.DRESSES.toString();
+        String subcategory_1 = Categories.CASUAL_DRESSES.toString();
+        String subcategory_2 = Categories.EVENING_DRESSES.toString();
         List<Product> testDataProducts_Dresses = testDataProducts
                 .getProducts()
                 .stream()
@@ -898,9 +898,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP19 Disable category filter")
     public void CP19_disableCategoryFilter(){
-        String category = "Dresses";
-        String subcategory_1 = "Casual Dresses";
-        String subcategory_2 = "Evening Dresses";
+        String category = Categories.DRESSES.toString();
+        String subcategory_1 = Categories.CASUAL_DRESSES.toString();
+        String subcategory_2 = Categories.EVENING_DRESSES.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -933,8 +933,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP20 Filter products by single color")
     public void CP20_filterProductsBySingleColorInWomen() {
-        String category = "Women";
-        String color = "Pink";
+        String category = Categories.WOMEN.toString();
+        String color = Colors.PINK.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1010,9 +1010,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP21 Filter products by two colors")
     public void CP21_filterProductsByTwoColorInDresses(){
-        String category = "Dresses";
-        String color_1 = "Pink";
-        String color_2 = "Blue";
+        String category = Categories.DRESSES.toString();
+        String color_1 = Colors.PINK.toString();
+        String color_2 = Colors.BLUE.toString();
         List<Product> testDataProducts_Dresses = testDataProducts
                 .getProducts()
                 .stream()
@@ -1096,9 +1096,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP22 Filter the same product by two colors")
     public void CP22_filterTheSameProductByTwoColorsInDresses(){
-        String category = "Dresses";
-        String color_1 = "Black";
-        String color_2 = "Blue";
+        String category = Categories.DRESSES.toString();
+        String color_1 = Colors.BLACK.toString();
+        String color_2 = Colors.BLUE.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1139,9 +1139,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP23 Disable color filter")
     public void CP23_disableColorFilter(){
-        String category = "Dresses";
-        String color_1 = "Black";
-        String color_2 = "Blue";
+        String category = Categories.DRESSES.toString();
+        String color_1 = Colors.BLACK.toString();
+        String color_2 = Colors.BLUE.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1174,8 +1174,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP24 Filter products by single color and sort by product name: Z to A")
     public void CP24_filterProductsByColorAndSortByNameInWomen(){
-        String category = "Women";
-        String color = "Black";
+        String category = Categories.WOMEN.toString();
+        String color = Colors.BLACK.toString();
         List<Product> testDataProductsSorted = testDataProducts
                 .getProducts()
                 .stream()
@@ -1228,8 +1228,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP25 Filter products by single property")
     public void CP25_filterProductsByPropertyInWomen(){
-        String category = "Women";
-        String property = "Short Sleeve";
+        String category = Categories.WOMEN.toString();
+        String property = Properties.SHORT_SLEEVE.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1306,9 +1306,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP26 Filter products by two properties")
     public void CP26_filterProductsByTwoPropertiesInDresses() {
-        String category = "Dresses";
-        String property_1 = "Colorful Dress";
-        String property_2 = "Maxi Dress";
+        String category = Categories.DRESSES.toString();
+        String property_1 = Properties.COLORFUL_DRESS.toString();
+        String property_2 = Properties.MAXI_DRESS.toString();
         List<Product> testDataProducts_Dresses = testDataProducts
                 .getProducts()
                 .stream()
@@ -1391,9 +1391,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP27 Disable properties filter")
     public void CP27_disablePropertyFilter(){
-        String category = "Dresses";
-        String property_1 = "Colorful Dress";
-        String property_2 = "Maxi Dress";
+        String category = Categories.DRESSES.toString();
+        String property_1 = Properties.COLORFUL_DRESS.toString();
+        String property_2 = Properties.MAXI_DRESS.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1425,8 +1425,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP28 Filter products by single property and sort by reference: lowest first")
     public void CP28_filterProductsByPropertyAndSortByReferenceInWomen(){
-        String category = "Women";
-        String property = "Short Sleeve";
+        String category = Categories.WOMEN.toString();
+        String property = Properties.SHORT_SLEEVE.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1476,8 +1476,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP29 Filter products by single composition")
     public void CP29_filterProductsBySingleCompositionInWomen(){
-        String category = "Women";
-        String composition = "Cotton";
+        String category = Categories.WOMEN.toString();
+        String composition = Compositions.COTTON.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1554,9 +1554,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP30 Filter products by two compositions")
     public void CP30_filterProductsByTwoCompositionsInWomen(){
-        String category = "Women";
-        String composition_1 = "Cotton";
-        String composition_2 = "Viscose";
+        String category = Categories.WOMEN.toString();
+        String composition_1 = Compositions.COTTON.toString();
+        String composition_2 = Compositions.VISCOSE.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1631,16 +1631,16 @@ public class CategoryPageTests extends BaseTest {
         // assert price range filter settings
         verifyPriceRangeFilter(categoryPage, testDataProducts_Women, soft);
         // assert pagination
-        verifyPagination(categoryPage,testDataProductsFiltered.size(), soft, numberOfProductsOnPage);
+        verifyPagination(categoryPage,testDataProductsFiltered_Ids.size(), soft, numberOfProductsOnPage);
         soft.assertAll();
     }
 
     @Test
     @DisplayName("CP31 Disable compositions filter")
     public void CP31_disableCompositionsFilter(){
-        String category = "Women";
-        String composition_1 = "Cotton";
-        String composition_2 = "Viscose";
+        String category = Categories.WOMEN.toString();
+        String composition_1 = Compositions.COTTON.toString();
+        String composition_2 = Compositions.VISCOSE.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1672,8 +1672,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP32 Filter products by single composition and sort by reference: highest first")
     public void CP32_filterProductsByCompositionAndSortByReferenceDescInWomen(){
-        String category = "Women";
-        String composition = "Cotton";
+        String category = Categories.WOMEN.toString();
+        String composition = Compositions.COTTON.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1725,8 +1725,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP33 Filter products by single style")
     public void CP33_filterProductsByStyleInWomen(){
-        String category = "Women";
-        String style = "Casual";
+        String category = Categories.WOMEN.toString();
+        String style = Styles.CASUAL.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1803,9 +1803,9 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP34 Filter products by two styles")
     public void CP34_filterProductsByTwoStylesInWomen(){
-        String category = "Women";
-        String style_1 = "Casual";
-        String style_2 = "Dressy";
+        String category = Categories.WOMEN.toString();
+        String style_1 = Styles.CASUAL.toString();
+        String style_2 = Styles.DRESSY.toString();
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
                 .stream()
@@ -1880,16 +1880,16 @@ public class CategoryPageTests extends BaseTest {
         // assert price range filter settings
         verifyPriceRangeFilter(categoryPage, testDataProducts_Women, soft);
         // assert pagination
-        verifyPagination(categoryPage,testDataProductsFiltered.size(), soft, numberOfProductsOnPage);
+        verifyPagination(categoryPage,testDataProductsFiltered_Ids.size(), soft, numberOfProductsOnPage);
         soft.assertAll();
     }
 
     @Test
     @DisplayName("CP35 Disable styles filter")
     public void CP35_disableStylesFilter(){
-        String category = "Women";
-        String style_1 = "Casual";
-        String style_2 = "Dressy";
+        String category = Categories.WOMEN.toString();
+        String style_1 = Styles.CASUAL.toString();
+        String style_2 = Styles.DRESSY.toString();
         List<Integer> testDataProductsFiltered_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1921,8 +1921,8 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP36 Filter products by single style and sort by reference: lowest first")
     public void CP36_filterProductsByStyleAndSortByReferenceDesc(){
-        String category = "Women";
-        String style = "Casual";
+        String category = Categories.WOMEN.toString();
+        String style = Styles.CASUAL.toString();
         List<Integer> testDataProductsSorted_Ids = testDataProducts
                 .getProducts()
                 .stream()
@@ -1971,7 +1971,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP37 Filter products by price")
     public void CP37_filterProductsByPrice() {
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Product> testDataProductsSorted = testDataProducts
                 .getProducts()
                 .stream()
@@ -2145,7 +2145,7 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP42 Filter products by price and sort by price highest first")
     public void CP42_filterProductsByPriceAndSortByPrice(){
-        String category = "Women";
+        String category = Categories.WOMEN.toString();
         List<Product> testDataProductsSorted = testDataProducts
                 .getProducts()
                 .stream()
@@ -2212,10 +2212,10 @@ public class CategoryPageTests extends BaseTest {
     @Test
     @DisplayName("CP43 Filter products by given category and two colors")
     public void CP43_filterProductsByGivenCategoryAndTwoColors(){
-        String category = "Women";
-        String subcategory = "Dresses";
-        String color_1 = "Blue";
-        String color_2 = "White";
+        String category = Categories.WOMEN.toString();
+        String subcategory = Categories.DRESSES.toString();
+        String color_1 = Colors.BLUE.toString();
+        String color_2 = Colors.WHITE.toString();
 
         List<Product> testDataProducts_Women = testDataProducts
                 .getProducts()
@@ -2306,7 +2306,7 @@ public class CategoryPageTests extends BaseTest {
     }
 
     @DisplayName("CP44 Filter products by price and style")
-    @ParameterizedTest(name = "{index} => Price: {0}-{1} Style: {2}")
+    @ParameterizedTest(name = "{displayName}: {index} => Price: {0}-{1} Style: {2}")
     @CsvSource({"22.29 , 29.69, Casual",
             "16.00 , 26.73, Casual"})
     public void CP44_filterProductsByPriceAndStyle(String lowPriceR, String highPriceR, String style){
@@ -2378,8 +2378,403 @@ public class CategoryPageTests extends BaseTest {
         verifyConditionFilter(categoryPage, testDataProductsFiltered, soft);
         // assert pagination
         verifyPagination(categoryPage,testDataProductsFiltered_Ids.size(), soft, numberOfProductsOnPage);
-
         soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP45 Sort products by price asc and filter by category")
+    public void CP45_sortProductsByPriceAscAndFilterByCategory(){
+        String category = Categories.DRESSES.toString();
+        String subcategory = Categories.SUMMER_DRESSES.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.PRICE_ASC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getSubcategory1stLevel().equalsIgnoreCase(subcategory))
+                .sorted(Comparator.comparing(Product::getPrice))
+                .distinct()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectCategoryFilterByName(subcategory);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP46 Sort products by price desc and filter by color")
+    public void CP46_sortProductsByPriceDescAndFilterByColor (){
+        String category = Categories.DRESSES.toString();
+        String color = Colors.YELLOW.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.PRICE_DESC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getColor().equalsIgnoreCase(color))
+                .sorted(Comparator.comparing(Product::getPrice).reversed())
+                .distinct()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectColorFilterByName(color);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP47 Sort products by product name and filter by size")
+    public void CP47_sortProductsByNameAndFilterBySize (){
+        String category = Categories.DRESSES.toString();
+        String size = "M";
+        SortProductsOptions sortByOption = SortProductsOptions.NAME_ASC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getSizes().contains(size))
+                .sorted(Comparator.comparing(Product::getName))
+                .distinct()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectSizeFilterByName(size);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+
+    }
+
+    @Test
+    @DisplayName("CP48 Sort products by name reversed and filter by property")
+    public void CP48_sortProductsByNameReversedAndFilterByProperty (){
+        String category = Categories.DRESSES.toString();
+        String property_1 = Properties.COLORFUL_DRESS.toString();
+        String property_2 = Properties.MAXI_DRESS.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.NAME_DESC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getProperties().equalsIgnoreCase(property_1) ||
+                        p.getProperties().equalsIgnoreCase(property_2))
+                .sorted(Comparator.comparing(Product::getName).reversed())
+                .distinct()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectPropertyFilterByName(property_1)
+                .selectPropertyFilterByName(property_2);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP49 Sort products by in stock availability and filter by composition")
+    public void CP49_sortProductsByInStockAvailabilityAndFilterByComposition (){
+        String category = Categories.DRESSES.toString();
+        String composition_1 = Compositions.COTTON.toString();
+        String composition_2 = Compositions.VISCOSE.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.QUANTITY_DESC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getCompositions().equalsIgnoreCase(composition_1) ||
+                        p.getCompositions().equalsIgnoreCase(composition_2))
+                .filter(p->p.getAvailability().equals(Stock.IN_STOCK))
+                .distinct()
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectCompositionsFilterByName(composition_1)
+                .selectCompositionsFilterByName(composition_2);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyInAnyOrderElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP50 Sort products by reference asc and filter by style")
+    public void CP50_sortProductsByReferenceAscAndFilterByStyle (){
+        String category = Categories.DRESSES.toString();
+        String style = Styles.GIRLY.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.REFERENCE_ASC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getStyles().equalsIgnoreCase(style))
+                .distinct()
+                .sorted(Comparator.comparing(Product::getReference))
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectStylesFilterByName(style);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyInAnyOrderElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP51 Sort products by reference desc and filter by in stock availability")
+    public void CP51_sortProductsByReferenceDescAndFilterByInStockAvailability (){
+        String category = Categories.DRESSES.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.REFERENCE_DESC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getAvailability().equals(Stock.IN_STOCK))
+                .distinct()
+                .sorted(Comparator.comparing(Product::getReference).reversed())
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectInStockFilter();
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyInAnyOrderElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP52 Sort products by price asc and filter by condition")
+    public void CP52_sortProductsByPriceAscAndFilterByCondition (){
+        String category = Categories.DRESSES.toString();
+        String condition = Conditions.NEW.toString();
+        SortProductsOptions sortByOption = SortProductsOptions.PRICE_ASC;
+
+        List<Integer> testDataProductsSorted_Ids = testDataProducts
+                .getProducts()
+                .stream()
+                .filter(p -> p.getCategory().equalsIgnoreCase(category))
+                .filter(p -> p.getCondition().equalsIgnoreCase(condition))
+                .distinct()
+                .sorted(Comparator.comparing(Product::getPrice))
+                .map(Product::getId)
+                .collect(Collectors.toList());
+
+        CategoryPage categoryPage = home
+                .getTopMenu()
+                .goToDressesPage()
+                .sortProductsBy(sortByOption)
+                .selectConditionFilter(condition);
+
+        List<Integer> productsIds =  categoryPage
+                .getProducts()
+                .stream()
+                .map(ProductBasePage::getId)
+                .collect(Collectors.toList());
+
+        int actualValueOfProductCounter = categoryPage.getNumberOfProductsFromProductCounter();
+        int expectedNumberOfProducts = testDataProductsSorted_Ids.size();
+
+        SoftAssertions soft = new SoftAssertions();
+        soft.assertThat(productsIds)
+                .as("Displayed products are different then expected")
+                .containsExactlyInAnyOrderElementsOf(testDataProductsSorted_Ids);
+        Allure.step("Assert if products are filtered and sorted as expected");
+        soft.assertThat(categoryPage.getSelectedSortByOption())
+                .as("Sorting option is different then was selected before filtering")
+                .isEqualTo(sortByOption.toString());
+        Allure.step("Assert if sort option is unchanged after filtering products");
+        soft.assertThat(actualValueOfProductCounter)
+                .as("Value of product counter is different then expected")
+                .isEqualTo(expectedNumberOfProducts);
+        Allure.step("Assert if header product counter equals to number of products filtered from test data");
+        soft.assertAll();
+    }
+
+    @Test
+    @DisplayName("CP53 Sort products by price desc and filter by price")
+    public void CP53_sortProductsByPriceDescAndFilterByPrice (){
+
     }
 
     private void verifyCategoriesFilter(CategoryPage categoryPage,

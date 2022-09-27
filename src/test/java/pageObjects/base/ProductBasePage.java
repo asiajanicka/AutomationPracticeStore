@@ -22,23 +22,6 @@ public class ProductBasePage extends BasePage{
     @Getter
     protected String pricePercentReduction;
 
-//    public ProductBasePage(WebDriver driver,
-//                           WebElement container,
-//                           WebElement img,
-//                           WebElement name,
-//                           String price,
-//                           String oldPrice,
-//                           String pricePercentReduction
-//    ) {
-//        super(driver);
-//        this.container = container;
-//        this.img = img;
-//        this.nameEl = name;
-//        this.price = price;
-//        this.oldPrice = oldPrice;
-//        this.pricePercentReduction = pricePercentReduction;
-//    }
-
     public ProductBasePage (WebDriver driver, WebElement product){
         super(driver);
         this.container = product.findElement(By.className("product-container"));
@@ -84,14 +67,6 @@ public class ProductBasePage extends BasePage{
         return new ProductHoveredBasePage(driver);
     }
 
-//    public String getImgStr() {
-//        return img.getAttribute("src");
-//    }
-
-    public boolean hasImgHyperLink(){
-        return hasHyperLink(img);
-    }
-
     @Step("Click on image")
     public pageObjects.ProductPage clickOnImg() {
         // trying to click on img directly will click on "Quick view" button that is in the middle of img
@@ -104,10 +79,6 @@ public class ProductBasePage extends BasePage{
 
     public String getName() {
         return nameEl.getText().strip();
-    }
-
-    public boolean hasNameHyperLink(){
-        return hasHyperLink(nameEl);
     }
 
     @Step("Click on name")
