@@ -18,8 +18,6 @@ public class CategoryProductPage extends ProductBasePage {
     @Getter
     private String availability;
 
-
-
     public CategoryProductPage(WebDriver driver, WebElement product){
         super(driver, product);
         this.colors = product.findElements(By.cssSelector("a[id^='color_']"));

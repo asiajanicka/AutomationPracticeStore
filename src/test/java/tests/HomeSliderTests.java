@@ -27,8 +27,8 @@ public class HomeSliderTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Slider has defined number of slides")
-    public void shouldHaveDefinedNumberOfSlidesInSlider() {
+    @DisplayName("HS1 Slider has defined number of slides")
+    public void HS1_shouldHaveDefinedNumberOfSlidesInSlider() {
         int expectedNumberOfSlides = appProperties.getNumberOfSlidesInCarousel();
         assertThat(home.getSlider().getNumberOfSlides())
                 .withFailMessage("Number of slides is different then %d", expectedNumberOfSlides)
@@ -37,8 +37,8 @@ public class HomeSliderTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display first slide after page launch")
-    public void shouldSeeFirstSlideAfterPageLaunch() {
+    @DisplayName("HS2 Display first slide after page launch")
+    public void HS2_shouldSeeFirstSlideAfterPageLaunch() {
         assertThat(home.getSlider().isElementInViewPort(0))
                 .withFailMessage("First slide is not displayed in view port")
                 .isTrue();
@@ -46,19 +46,20 @@ public class HomeSliderTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Move to next slide")
-    public void shouldMoveToNextSlideByClickOnForwardBtn() {
+    @DisplayName("HS3 Move to next slide")
+    public void HS3_shouldMoveToNextSlideByClickOnForwardBtn() {
         home.getSlider().goToNextSlide();
 
-        await().atMost(3, SECONDS).untilAsserted(() -> assertThat(home.getSlider().isElementInViewPort(1))
+        await().atMost(3, SECONDS)
+                .untilAsserted(() -> assertThat(home.getSlider().isElementInViewPort(1))
                 .withFailMessage("Slide did not change from 0 do 1")
                 .isTrue());
         Allure.step("Assert if next slide (with index 1) is displayed");
     }
 
     @Test
-    @DisplayName("Display all slides one by one")
-    public void shouldDisplayAllSlidesOneByOne() {
+    @DisplayName("HS4 Display all slides one by one")
+    public void HS4_shouldDisplayAllSlidesOneByOne() {
         SoftAssertions softly = new SoftAssertions();
         for (WebElement slide : home.getSlider().getElements()) {
             int indexOfSlide = home.getSlider().getElements().indexOf(slide);
@@ -94,8 +95,8 @@ public class HomeSliderTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Move to first slide after last slide")
-    public void shouldMoveToFirstSlideAfterLastSlide() {
+    @DisplayName("HS5 Move to first slide after last slide")
+    public void HS5_shouldMoveToFirstSlideAfterLastSlide() {
         for (WebElement slide : home.getSlider().getElements()) {
             await().until(() -> home.getSlider().isElementInViewPort(slide));
             int indexOfSlide = home.getSlider().getElements().indexOf(slide);
@@ -112,8 +113,8 @@ public class HomeSliderTests extends BaseTest {
 
     @Test
     @Feature("Home Slider")
-    @DisplayName("Move to previous slide")
-    public void shouldMoveBackToPreviousSlideAfterClickOnBackBtn() {
+    @DisplayName("HS6 Move to previous slide")
+    public void HS6_shouldMoveBackToPreviousSlideAfterClickOnBackBtn() {
         home.getSlider().goToNextSlide();
         await().atMost(1000, MILLISECONDS).until(() -> home.getSlider().isElementInViewPort(1));
         home.getSlider().goToPreviousSlide();
@@ -126,8 +127,8 @@ public class HomeSliderTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Move back to last slide from first slide")
-    public void shouldMoveToLastSlideFromFirstSlideAfterClickOnBackBtnTest() {
+    @DisplayName("HS7 Move back to last slide from first slide")
+    public void HS7_shouldMoveToLastSlideFromFirstSlideAfterClickOnBackBtnTest() {
         int indexOfLastSlide = home.getSlider().getNumberOfSlides() - 1;
         home.getSlider().goToPreviousSlide();
 

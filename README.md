@@ -5,6 +5,8 @@ The components covered by tests are as follows:
 - carousel slider on home page
 - tabs "Popular" items (with alert) and "Best sellers" (with products) on home page
 - dropdown shopping cart on home page
+- top menu
+- product category page
 
 Tests are designed with use of Page Object Model with composition approach and with Page Factory concept.
 
@@ -18,6 +20,7 @@ The project is created using following frameworks and libraries:
 Test can be run with use of CHROME and FIREFOX. 
 In order to choose browser, go to config.properties and enter CHROME or FIREFOX for browser param.
 To use mentioned browsers, they should be installed on your computer.
+
 
 To serve test report with Allure on your computer:
 1) run tests using: mvn clean test 

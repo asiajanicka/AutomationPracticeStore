@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pageObjects.ContactUsPage;
-import pageObjects.NavigationPipePage;
 import urls.Urls;
 import utils.ContactUsMessage;
 
@@ -21,23 +20,19 @@ import static org.awaitility.Awaitility.await;
 public class ContactUsFormTests extends BaseTest {
 
     private ContactUsPage contactUs;
-    private NavigationPipePage navigationPipe;
 
     @BeforeEach
     public void testSetup() {
         super.testSetup();
         String contactUsURL = configuration.getBaseUrl() + Urls.contactUs;
         driver.navigate().to(contactUsURL);
-
         contactUs = new ContactUsPage(driver);
-        navigationPipe = new NavigationPipePage(driver);
     }
 
     @Test()
-    @DisplayName("Send message with valid data without attachment and go to home page")
-    public void shouldSendContactUsFormWithValidDataWithoutAttachment() {
+    @DisplayName("CF1 Send message with valid data without attachment and go to home page")
+    public void CF1_shouldSendContactUsFormWithValidDataWithoutAttachment() {
         SoftAssertions softly = new SoftAssertions();
-        verifyContactUsLabelInNavigationPipe(softly);
         verifyNumberOfEntriesInSubjectList(softly);
 
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
@@ -54,8 +49,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test()
-    @DisplayName("Send message with valid data with attachment")
-    public void shouldSendContactUsFormWithValidDataWithAttachment(){
+    @DisplayName("CF2 Send message with valid data with attachment")
+    public void CF2_shouldSendContactUsFormWithValidDataWithAttachment(){
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
 
         contactUs.sendFormWithAttachment(message);
@@ -67,8 +62,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send empty message and close red alert")
-    public void shouldNotAllowToSendEmptyContactUsForm() {
+    @DisplayName("CF3 Don't send empty message and close red alert")
+    public void CF3_shouldNotAllowToSendEmptyContactUsForm() {
         contactUs.sendMessage();
 
         assertThat(contactUs.isRedAlertDisplayed())
@@ -85,8 +80,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName(("Don't send message with subject only"))
-    public void shouldNotAllowToSendContactUsFormWithSubjectHeadingOnly() {
+    @DisplayName(("CF4 Don't send message with subject only"))
+    public void CF4_shouldNotAllowToSendContactUsFormWithSubjectHeadingOnly() {
         ContactUsMessage message = new ContactUsMessage();
         message.setSubject(testData.getMessage().getSubject());
 
@@ -99,8 +94,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message without subject")
-    public void shouldNotAllowToSendContactUsFormWithoutSubjectHeading() {
+    @DisplayName("CF5 Don't send message without subject")
+    public void CF5_shouldNotAllowToSendContactUsFormWithoutSubjectHeading() {
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
         message.setSubject(ContactUsSubject.CHOOSE);
 
@@ -113,8 +108,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with empty email")
-    public void shouldNotAllowToSendContactUsFormWithEmptyEmail() {
+    @DisplayName("CF6 Don't send message with empty email")
+    public void CF6_shouldNotAllowToSendContactUsFormWithEmptyEmail() {
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
         message.setEmail("");
 
@@ -127,8 +122,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with email address only")
-    public void shouldNotAllowToSendContactUsFormWithEmailAddressOnly() {
+    @DisplayName("CF7 Don't send message with email address only")
+    public void CF7_shouldNotAllowToSendContactUsFormWithEmailAddressOnly() {
         ContactUsMessage message = new ContactUsMessage();
         message.setEmail(testData.getMessage().getEmail());
 
@@ -141,8 +136,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with invalid email")
-    public void shouldNotAllowToSendContactUsFormWithInvalidEmail() {
+    @DisplayName("CF8 Don't send message with invalid email")
+    public void CF8_shouldNotAllowToSendContactUsFormWithInvalidEmail() {
         String invalidEmail = "www@pl";
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
         message.setEmail(invalidEmail);
@@ -156,8 +151,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Send message with max length valid email")
-    public void shouldAllowToSendMessageWithMaxLengthEmail() {
+    @DisplayName("CF9 Send message with max length valid email")
+    public void CF9_shouldAllowToSendMessageWithMaxLengthEmail() {
         String validEmail = RandomStringUtils.randomAlphabetic(64) + "@" +
                 RandomStringUtils.randomAlphabetic(185) + ".com";
 
@@ -175,8 +170,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with order reference only")
-    public void shouldNotAllowToSendContactUsFormWithOrderReferenceOnly() {
+    @DisplayName("CF10 Don't send message with order reference only")
+    public void CF10_shouldNotAllowToSendContactUsFormWithOrderReferenceOnly() {
         ContactUsMessage message = new ContactUsMessage();
         message.setOrderReference(testData.getMessage().getOrderReference());
 
@@ -189,8 +184,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Send message with empty order reference")
-    public void shouldAllowToSendContactUsFormWithEmptyOrderReference() {
+    @DisplayName("CF11 Send message with empty order reference")
+    public void CF11_shouldAllowToSendContactUsFormWithEmptyOrderReference() {
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
         message.setOrderReference("");
 
@@ -203,8 +198,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with text only")
-    public void shouldNotAllowToSendContactUsFormWithMessageTextOnly() {
+    @DisplayName("CF12 Don't send message with text only")
+    public void CF12_shouldNotAllowToSendContactUsFormWithMessageTextOnly() {
         ContactUsMessage message = new ContactUsMessage();
         message.setMessageText(testData.getMessage().getMessageText());
 
@@ -217,8 +212,8 @@ public class ContactUsFormTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Don't send message with empty text")
-    public void shouldNotAllowToSendContactUsFormWithEmptyMessageText() {
+    @DisplayName("CF13 Don't send message with empty text")
+    public void CF13_shouldNotAllowToSendContactUsFormWithEmptyMessageText() {
         ContactUsMessage message = new ContactUsMessage(testData.getMessage());
         message.setMessageText("");
 
@@ -238,19 +233,6 @@ public class ContactUsFormTests extends BaseTest {
                         driver.getCurrentUrl(),
                         expectedHomePageUrl)
                 .isEqualTo(expectedHomePageUrl);
-    }
-
-    @Step("Verify if contact us label is displayed in navigation pipe")
-    public void verifyContactUsLabelInNavigationPipe(SoftAssertions softly){
-        String contactUsLabel = appProperties.getNavPipeLabel().getContactUs();
-
-        softly.assertThat(navigationPipe.getElements().size())
-                .withFailMessage("Level of navigation in page for contact us is deeper then 1")
-                .isEqualTo(1);
-
-        softly.assertThat(navigationPipe.getElements())
-                .withFailMessage(String.format("Navigation pipe does not display \"%s\" label", contactUsLabel))
-                .contains(contactUsLabel);
     }
 
     @Step("Verify if subject list is not empty")

@@ -45,7 +45,7 @@ public class BestSellerProductPage extends BasePage {
     @Step("Hover on product")
     public BestSellerHoveredProductPage getProductOnHover() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", container);
+        js.executeScript("arguments[0].scrollIntoView(true);", container);
         Actions action = new Actions(driver);
         action.moveByOffset(1,1);
         action.moveToElement(container).perform();

@@ -11,6 +11,8 @@ import org.openqa.selenium.support.FindBy;
 import pageObjects.base.BasePage;
 import pageObjects.ProductPage;
 import pageObjects.ProductQuickViewPage;
+import pageObjects.base.Product;
+import pageObjects.base.ProductBasePage;
 
 public class BestSellerHoveredProductPage extends BasePage {
 

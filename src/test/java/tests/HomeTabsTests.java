@@ -32,8 +32,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display Popular Items after page launch")
-    public void shouldSeePopularItemsContentAfterPageLaunch() {
+    @DisplayName("HT1 Display Popular Items after page launch")
+    public void HT1_shouldSeePopularItemsContentAfterPageLaunch() {
         String expectedActiveTab = appProperties.getPopularItemsTabLabel();
         assertThat(home.getActiveTabName())
                 .withFailMessage(String.format("Name of active tab should be: %s but is: %s",
@@ -52,8 +52,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Switch content between tabs")
-    public void shouldSwitchBetweenTabs() {
+    @DisplayName("HT2 Switch content between tabs")
+    public void HT2_shouldSwitchBetweenTabs() {
         home.goToBestSellers();
 
         String expectedActiveTab = appProperties.getBestSellersTabLabel();
@@ -92,8 +92,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display alert if no content in Popular Items is available")
-    public void shouldSeeNoProductsAlertInPopularItem() {
+    @DisplayName("HT3 Display alert if no content in Popular Items is available")
+    public void HT3_shouldSeeNoProductsAlertInPopularItem() {
         assertThat(home.getPopularItems().isNoProductsAlertDisplayed())
                 .withFailMessage("Alert informing that there are not products in Popular Items" +
                         " is not displayed")
@@ -102,8 +102,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display given number of products with necessary info")
-    public void shouldSeeAmountOfProductsInBestSellers() {
+    @DisplayName("HT4 Display given number of products with necessary info in Best Sellers")
+    public void HT4_shouldSeeAmountOfProductsInBestSellers() {
         SoftAssertions softly = new SoftAssertions();
 
         List<BestSellerProductPage> products = home.goToBestSellers().getProducts();
@@ -122,9 +122,6 @@ public class HomeTabsTests extends BaseTest {
         softly.assertThat(products)
                 .withFailMessage("Some of products have empty image")
                 .noneSatisfy(p -> assertThat(p.getImgStr()).isEmpty());
-        softly.assertThat(products)
-                .withFailMessage("Some of products have empty hyperlink for image")
-                .noneSatisfy(p -> assertThat(p.hasImgHyperLink()).isFalse());
         softly.assertThat(products)
                 .withFailMessage("Some of products have empty price")
                 .noneSatisfy(p -> assertThat(p.getPrice()).isEmpty());
@@ -150,8 +147,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display given number of discounted products with old price and price percent reduction")
-    public void shouldSeeDiscountedProducts() {
+    @DisplayName("HT5 Display given number of discounted products with old price and price percent reduction")
+    public void HT5_shouldSeeDiscountedProducts() {
         SoftAssertions softly = new SoftAssertions();
 
         List<BestSellerProductPage> discountedProducts = home.goToBestSellers().getDiscountedProducts();
@@ -198,8 +195,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Go to product page after click on product img")
-    public void shouldGoToProductPageAfterClickOnProductImg() throws InterruptedException {
+    @DisplayName("HT6 Go to product page after click on product img")
+    public void HT6_shouldGoToProductPageAfterClickOnProductImg() {
         String expectedName = testData.getProductNames()[0];
         ProductPage productPage = home.goToBestSellers().getProduct(expectedName).clickOnImg();
 
@@ -212,8 +209,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Go to product page after click on product name")
-    public void shouldGoToProductPageAfterClickOnProductName() {
+    @DisplayName("HT7 Go to product page after click on product name")
+    public void HT7_shouldGoToProductPageAfterClickOnProductName() {
         String expectedName = testData.getProductNames()[0];
         ProductPage productPage = home.goToBestSellers().getProduct(expectedName).clickOnName();
 
@@ -226,8 +223,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display price and availability of product after hover")
-    public void shouldSeeAvailabilityAndPriceAfterHoverOnProduct() {
+    @DisplayName("HT8 Display price and availability of product after hover")
+    public void HT8_shouldSeeAvailabilityAndPriceAfterHoverOnProduct() {
         String productName = testData.getProductNames()[1];
         BestSellerProductPage product = home.goToBestSellers().getProduct(productName);
         String expectedPrice = product.getPrice();
@@ -251,8 +248,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Display old price and price percent reduction of discounted product after hover")
-    public void shouldSeeOldPriceAndReductionAfterHoverOnProduct() {
+    @DisplayName("HT9 Display old price and price percent reduction of discounted product after hover")
+    public void HT9_shouldSeeOldPriceAndReductionAfterHoverOnProduct() {
         String discountedProductName = testData.getDiscountedProductNames()[0];
         BestSellerProductPage discountedProduct = home.goToBestSellers().getProduct(discountedProductName);
         String expectedOldPrice = discountedProduct.getOldPrice();
@@ -277,8 +274,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Go to product page after click on \"More\"")
-    public void shouldGoToProductPageAfterClickOnMoreBtn() {
+    @DisplayName("HT10 Go to product page after click on \"More\"")
+    public void HT10_shouldGoToProductPageAfterClickOnMoreBtn() {
         String expectedName = testData.getProductNames()[0];
         ProductPage productPage = home.goToBestSellers().getProduct(expectedName).getProductOnHover().viewMore();
 
@@ -291,8 +288,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Quick view product")
-    public void shouldSeeQuickViewPageAfterClickOnQuickViewBtn() {
+    @DisplayName("HT11 Quick view product")
+    public void HT11_shouldSeeQuickViewPageAfterClickOnQuickViewBtn() {
         String expectedName = testData.getProductNames()[0];
         ProductQuickViewPage quickView = home.goToBestSellers().getProduct(expectedName).getProductOnHover().quickView();
 
@@ -303,8 +300,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Add product to cart")
-    public void shouldAddProductToCart() {
+    @DisplayName("HT12 Add product to cart")
+    public void HT12_shouldAddProductToCart() {
         String expectedName = testData.getProductNames()[0];
         home.goToBestSellers().getProduct(expectedName).getProductOnHover().addToCart().closeWindow();
 
@@ -316,8 +313,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Add the same product to cart three times")
-    public void shouldAddProductToCartThreeTimes() {
+    @DisplayName("HT13 Add the same product to cart three times")
+    public void HT13_shouldAddProductToCartThreeTimes() {
         String expectedName = testData.getProductNames()[0];
         int numberOfItems = 3;
         for (int i = 0; i < numberOfItems; i++) {
@@ -333,8 +330,8 @@ public class HomeTabsTests extends BaseTest {
     }
 
     @Test
-    @DisplayName("Add three different products to cart")
-    public void shouldAddThreeDifferentProductsToCart() {
+    @DisplayName("HT14 Add three different products to cart")
+    public void HT14_shouldAddThreeDifferentProductsToCart() {
         String product_1_name = testData.getProductNames()[0];
         home.goToBestSellers().getProduct(product_1_name).getProductOnHover().addToCart().closeWindow();
         String product_2_name = testData.getProductNames()[1];

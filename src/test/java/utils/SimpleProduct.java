@@ -2,7 +2,6 @@ package utils;
 
 import lombok.AllArgsConstructor;
 import pageObjects.base.Product;
-import pageObjects.categoryPages.CategoryProductPage;
 
 import java.math.BigDecimal;
 import java.util.Objects;

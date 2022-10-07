@@ -1,10 +1,7 @@
 package pageObjects.homePages;
 
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import pageObjects.base.BasePage;
@@ -74,11 +71,14 @@ public class BestSellersPage extends BasePage {
 
     @Step("Get product {0}")
     public BestSellerProductPage getProduct(String name){
-        return getProducts()
+        BestSellerProductPage product = getProducts()
                 .stream()
-                .filter(p->p.getName().equals(name))
+                .filter(p -> p.getName().equals(name))
                 .findFirst()
-                .orElseThrow(()->new IllegalArgumentException("There is no product with given name"));
+                .orElseThrow(() -> new IllegalArgumentException("There is no product with given name"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView(true);", product.container);
+        return product;
     }
 
 }

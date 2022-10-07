@@ -2,7 +2,6 @@ package fileLoaders;
 
 import lombok.Getter;
 import utils.CategoryNameLabels;
-import utils.NavPipeLabels;
 
 import java.math.BigDecimal;
 import java.util.Currency;
@@ -26,7 +25,6 @@ public class AppPropertiesReader extends PropertiesReader {
     private String cartProductsLabel;
     private String cartPageTitle;
 
-    private NavPipeLabels navPipeLabel;
     private CategoryNameLabels categoryNameLabels;
 
     public AppPropertiesReader() {
@@ -47,7 +45,6 @@ public class AppPropertiesReader extends PropertiesReader {
         minNumberOfThumbnailsForProduct = Integer
                 .parseInt(properties.getProperty("minNumberOfThumbnailsForProduct"));
 
-        navPipeLabel = new NavPipeLabels(properties);
         bestSellersTabLabel = properties.getProperty("home.bestSellersLabel");
         popularItemsTabLabel = properties.getProperty("home.popularItemsLabel");
         bestSellersTabContentId = properties.getProperty("home.bestSellersId");

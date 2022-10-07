@@ -43,6 +43,6 @@ public abstract class BasePage {
 
     protected void scrollToElement(WebElement el){
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", el);
+        js.executeScript("arguments[0].scrollIntoView(true);", el);
     }
 }
