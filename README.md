@@ -24,12 +24,12 @@ To use mentioned browsers, they should be installed on your computer.
 
 To serve test report with Allure on your computer:
 1) run tests using: mvn clean test 
-2) generate a report with: allure serve target/allure-results
-Please remember that Allure must be installed according to the spec: https://docs.qameta.io/allure/contactUsForm
+2) generate a report with: allure serve target/allure-results \
+Please remember that Allure must be installed on your machine.
 
-List of test cases covering all mentioned component can be downloaded from:
-https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/TestCases/AutomationPracticeStore_TestCases.xlsx
-Test report:
-https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/TestCases/AutomationPracticeStore_TestReport.xlsx
-Bug report: 
-https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/BugReports/AutomationPracticeStore_BugReport.xlsx
+List of test cases covering all mentioned component is available:\
+https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/TestCases/AutomationPracticeStore_TestCases.xlsx \
+Test report:\
+https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/TestCases/AutomationPracticeStore_TestReport.xlsx \
+Bug report:\
+https://github.com/asiajanicka/AutomationPracticeStore/blob/main/src/test/BugReports/AutomationPracticeStore_BugReport.xlsx 
